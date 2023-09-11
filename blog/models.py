@@ -87,6 +87,7 @@ class Like(models.Model):
 
 class Comment(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
+    parent_comment = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
     name = models.CharField(max_length=100, verbose_name='Name')
     phone = models.CharField(max_length=15, verbose_name='Phone')
     email = models.EmailField(max_length=255, verbose_name='Email')
