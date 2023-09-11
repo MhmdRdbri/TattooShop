@@ -16,6 +16,9 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
+    def article_count(self):
+        return self.articles.count()
+
 
 class Article(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, default='admin', verbose_name='نویسنده')
@@ -53,8 +56,8 @@ class Article(models.Model):
         self.slug = slugify(self.title)
         super(Article, self).save()
 
-    # def get_absolute_url(self):
-    #     return reverse('blog:article_detail', kwargs={'slug': self.slug})
+    def get_absolute_url(self):
+        return reverse('blog:article_detail', kwargs={'slug': self.slug})
 
     def __str__(self):
         return f"{self.title}"
