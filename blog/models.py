@@ -83,3 +83,20 @@ class Like(models.Model):
 
     class Meta:
         ordering = ('-created_at',)
+
+
+class Comment(models.Model):
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
+    name = models.CharField(max_length=100, verbose_name='Name')
+    phone = models.CharField(max_length=15, verbose_name='Phone')
+    email = models.EmailField(max_length=255, verbose_name='Email')
+    message = models.TextField(verbose_name='Message')
+    created = models.DateTimeField(default=timezone.now, verbose_name='Created')
+
+    class Meta:
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
+        ordering = ('created',)
+
+    def __str__(self):
+        return f"Comment by {self.name} on {self.article.title}"

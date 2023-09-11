@@ -31,5 +31,7 @@ def article_detail(request, slug):
 
     context = {
         'articles': articles,
+        'category': category,
+        'latest': latest
     }
     return render(request, "blog/article_details.html", context)
