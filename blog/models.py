@@ -8,8 +8,8 @@ from django_ckeditor_5.fields import CKEditor5Field
 
 
 class Category(models.Model):
-    title = models.CharField(max_length=100)
-    created = models.DateTimeField(auto_now_add=True)
+    title = models.CharField(max_length=100, verbose_name='Title')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Created')
 
     def __str__(self):
         return self.title
@@ -17,6 +17,7 @@ class Category(models.Model):
 
 class Article(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Author')
+    category = models.ManyToManyField(Category, related_name="articles", verbose_name='Category')
     title = models.CharField(max_length=100, verbose_name='Title')
     slug = models.SlugField(unique=True, blank=True, verbose_name='Slug')
     body = CKEditor5Field('Text', config_name='extends')
@@ -52,3 +53,17 @@ class Article(models.Model):
 
     def __str__(self):
         return f"{self.title} - {self.body[:30]}"
+
+
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='likes')
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='likes')
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return f"{self.user.username} = {self.article.title}"
+
+    class Meta:
+        verbose_name = "لایک"
+        verbose_name_plural = "لایک ها"
+        ordering = ('-created_at',)
