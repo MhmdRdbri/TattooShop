@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from blog.models import *
 from django.core.paginator import Paginator
-# from .forms import *
+from .forms import *
 from django.views.generic.base import View, TemplateView
 
 
@@ -22,16 +22,31 @@ def article_list(request):
 
 def article_detail(request, slug):
     articles = get_object_or_404(Article, slug=slug)
+    comments = articles.comments.all()
     category = Category.objects.all()
     latest = Article.objects.order_by('-created')[:3]
-    # if request.method == 'POST':
-    #     parent_id = request.POST.get('parent_id')
-    #     body = request.POST.get('body')
-    #     Comment.objects.create(body=body, article=articles, user=request.user, parent_id=parent_id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            parent_comment_id = request.POST.get('parent_comment_id')
+            parent_comment = None
+
+            if parent_comment_id:
+                parent_comment = get_object_or_404(Comment, pk=parent_comment_id)
+            new_comment = form.save(commit=False)
+            new_comment.article = articles
+            new_comment.parent_comment = parent_comment
+            new_comment.save()
+            form = CommentForm()  # Clear the form after submission
+
+        else:
+            form = CommentForm()
 
     context = {
         'articles': articles,
         'category': category,
-        'latest': latest
+        'latest': latest,
+        'comments': comments,
+        'form': form,
     }
     return render(request, "blog/article_details.html", context)
