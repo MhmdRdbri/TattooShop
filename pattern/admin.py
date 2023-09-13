@@ -1,4 +1,10 @@
 from django.contrib import admin
 from .models import *
 
-admin.site.register(Pattern)
+
+class PatternAdmin(admin.ModelAdmin):
+    readonly_fields = ('view_count',)
+
+
+admin.site.register(Pattern, PatternAdmin)
+admin.site.register(PatternPostViewLog)
