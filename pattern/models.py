@@ -15,7 +15,6 @@ class Pattern(models.Model):
     view_count = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated')
-
     # tags
     pagetitle = models.CharField(max_length=500, blank=True, null=True, verbose_name='Title')
     description = models.CharField(max_length=500, blank=True, null=True, verbose_name='Description')
