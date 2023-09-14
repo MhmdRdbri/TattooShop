@@ -17,7 +17,7 @@ def pattern_list(request):
     categories = PatternCategory.objects.all()
 
     context = {
-        'articles': object_list,
+        'patterns': object_list,
         'categories': categories,
         'selected_category': category_title,
     }
