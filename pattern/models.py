@@ -49,6 +49,14 @@ class Pattern(models.Model):
         return reverse('blog:article_detail', kwargs={'slug': self.slug})
 
 
+class PatternImage(models.Model):
+    pattern = models.ForeignKey(Pattern, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='pattern_images/')
+    description = models.CharField(max_length=255, blank=True)
+
+    def __str__(self):
+        return f"Image for {self.pattern.name}"
+
 class PatternPostViewLog(models.Model):
     pattern_post = models.ForeignKey(Pattern, on_delete=models.CASCADE)
     ip_address = models.GenericIPAddressField()
