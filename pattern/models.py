@@ -57,6 +57,7 @@ class PatternImage(models.Model):
     def __str__(self):
         return f"Image for {self.pattern.name}"
 
+
 class PatternPostViewLog(models.Model):
     pattern_post = models.ForeignKey(Pattern, on_delete=models.CASCADE)
     ip_address = models.GenericIPAddressField()
