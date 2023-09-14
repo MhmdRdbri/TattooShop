@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import *
 from django.core.paginator import Paginator
 
@@ -14,3 +14,7 @@ def course_list(request):
 
     }
     return render(request, "blog/articles_list.html", context)
+
+
+def course_detail(request, slug):
+    course = get_object_or_404(Course, slug=slug)

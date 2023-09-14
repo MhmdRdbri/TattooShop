@@ -41,6 +41,8 @@ def pattern_detail(request, slug):
         patterns.view_count += 1
         patterns.save()
 
+    return render(request, "blog/articles_list.html", {'patterns': patterns})
+
 
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -49,3 +51,5 @@ def get_client_ip(request):
     else:
         ip = request.META.get('REMOTE_ADDR')
     return ip
+
+

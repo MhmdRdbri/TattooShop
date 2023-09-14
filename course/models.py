@@ -3,11 +3,11 @@ from django.db import models
 
 class Course(models.Model):
     name = models.CharField(max_length=100, verbose_name="نام دوره")
+    slug = models.SlugField(unique=True, blank=True, verbose_name='Slug')
 
     class Meta:
         verbose_name = 'دوره'
         verbose_name_plural = "دوره ها"
-
 
     def __str__(self):
         return self.name
