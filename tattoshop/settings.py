@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'django_ckeditor_5',
     'home_app.apps.HomeAppConfig',
     'blog.apps.BlogConfig',
-    'services.apps.ServicesConfig',
     'pattern.apps.PatternConfig',
+    'course.apps.CourseConfig',
 ]
 
 MIDDLEWARE = [
