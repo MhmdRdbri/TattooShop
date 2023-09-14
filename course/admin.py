@@ -2,11 +2,6 @@ from django.contrib import admin
 from .models import *
 
 
-class CourseAttributeInline(admin.TabularInline):
-    model = Course.attributes.through
-    extra = 1
-
-
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
     list_display = ('name',)
@@ -15,11 +10,13 @@ class CourseAdmin(admin.ModelAdmin):
         (None, {
             'fields': ('name',)
         }),
+        ('Dynamic Attributes', {
+            'fields': ('dynamic_attributes',),
+        }),
     )
 
-    inlines = [CourseAttributeInline]
-
-
-@admin.register(CourseAttribute)
-class CourseAttributeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'value')
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        # Customize the form widget for dynamic_attributes to be a textarea
+        form.base_fields['dynamic_attributes'].widget.attrs['widget'] = 'textarea'
+        return form
