@@ -5,13 +5,21 @@ from django.core.paginator import Paginator
 
 def pattern_list(request):
     patterns = Pattern.objects.all()
-
+    category_title = request.GET.get('category', None)
+    if category_title:
+        patterns = Pattern.objects.filter(category__title=category_title)
+    else:
+        patterns = Pattern.objects.all()
     page_number = request.GET.get('page')
     paginator = Paginator(patterns, 9)
     object_list = paginator.get_page(page_number)
 
+    categories = PatternCategory.objects.all()
+
     context = {
         'articles': object_list,
+        'categories': categories,
+        'selected_category': category_title,
     }
     return render(request, "blog/articles_list.html", context)
 

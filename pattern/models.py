@@ -4,9 +4,18 @@ from django.utils.text import slugify
 from django_ckeditor_5.fields import CKEditor5Field
 
 
+class PatternCategory(models.Model):
+    title = models.CharField(max_length=100, verbose_name='Title')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Created')
+
+    def __str__(self):
+        return self.title
+
+
 class Pattern(models.Model):
     name = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
+    category = models.ManyToManyField(PatternCategory, related_name="articles", verbose_name='Category')
     slug = models.SlugField(unique=True, blank=True, verbose_name='Slug')
     description = CKEditor5Field('Text', config_name='extends')
     video = models.FileField(upload_to='patterns/', blank=True, null=True)
