@@ -20,7 +20,7 @@ class Samples(models.Model):
     name = models.CharField(max_length=250, verbose_name='نام طرح')
     title = models.CharField(max_length=250, verbose_name='عتوان طرح')
     slug = models.SlugField(unique=True, blank=True, verbose_name='اسلاگ')
-    category = models.ManyToManyField(Category, related_name="samples", verbose_name='دسته بندی')
+    category = models.ManyToManyField(SamplesCategory, related_name="samples", verbose_name='دسته بندی')
     author = models.CharField(max_length=1, choices=Author, default='Z', verbose_name="توسط")
     description = CKEditor5Field('توضیحات', config_name='extends')
     video = models.FileField(upload_to='video/samples', verbose_name='ویدیو طرح')

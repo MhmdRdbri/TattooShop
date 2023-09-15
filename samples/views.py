@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from .models import *
 
@@ -15,3 +15,20 @@ def sample_list(request):
     object_list = paginator.get_page(page_number)
 
     categories = SamplesCategory.objects.all()
+
+    context = {
+        'samples': object_list,
+        'categories': categories,
+        'selected_category': category_title,
+    }
+    return render(request, "blog/articles_list.html", context)
+
+
+def sample_detail(request, slug):
+    samples = get_object_or_404(Samples, slug=slug)
+
+    context = {
+        'samples': samples,
+    }
+    return render(request, "blog/articles_list.html", context)
+
