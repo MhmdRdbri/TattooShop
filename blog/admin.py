@@ -34,3 +34,4 @@ class FlatPageAdmin(admin.ModelAdmin):
 admin.site.register(Article, FlatPageAdmin)
 admin.site.register(Category)
 admin.site.register(Like)
+admin.site.register(Comment)

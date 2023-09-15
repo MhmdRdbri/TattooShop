@@ -89,12 +89,14 @@ class Comment(models.Model):
     phone = models.CharField(max_length=15, verbose_name='Phone')
     email = models.EmailField(max_length=255, verbose_name='Email')
     message = models.TextField(verbose_name='Message')
-    created = models.DateTimeField(default=timezone.now, verbose_name='Created')
+    # created = models.DateTimeField(default=timezone.now, verbose_name='Created')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated')
 
     class Meta:
         verbose_name = 'Comment'
         verbose_name_plural = 'Comments'
-        ordering = ('created',)
+        # ordering = ('created_at',)
 
     def __str__(self):
         return f"Comment by {self.name} on {self.article.title}"

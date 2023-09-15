@@ -1,8 +1,12 @@
 from django.db import models
+from django_ckeditor_5.fields import CKEditor5Field
 
 
 class Course(models.Model):
     name = models.CharField(max_length=100, verbose_name="نام دوره")
+    image = models.ImageField(upload_to='images/course', blank=True, null=True)
+    alt = models.CharField(max_length=100, verbose_name='Alt', blank=True, null=True)
+    description = CKEditor5Field('Text', config_name='extends', blank=True, null=True)
     slug = models.SlugField(unique=True, blank=True, verbose_name='Slug')
 
     class Meta:

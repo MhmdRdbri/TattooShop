@@ -1,3 +1,5 @@
+from django.utils import timezone
+
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
@@ -65,3 +67,27 @@ class PatternPostViewLog(models.Model):
 
     def __str__(self):
         return f"{self.pattern_post.title} - {self.ip_address}"
+
+
+class Comment(models.Model):
+    pattern = models.ForeignKey(Pattern, on_delete=models.CASCADE, related_name='comments')
+    parent_comment = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
+    name = models.CharField(max_length=100, verbose_name='Name')
+    phone = models.CharField(max_length=15, verbose_name='Phone')
+    email = models.EmailField(max_length=255, verbose_name='Email')
+    message = models.TextField(verbose_name='Message')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated')
+
+    def save(self, *args, **kwargs):
+        if not self.created_at:
+            self.created = timezone.now()
+        super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
+        # ordering = ('created_at',)
+
+    def __str__(self):
+        return f"Comment by {self.name} on {self.pattern.title}"

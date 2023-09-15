@@ -16,6 +16,6 @@ class CourseAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('name',)
+            'fields': ('name', 'image','alt','description','slug')
         }),
     )
