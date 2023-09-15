@@ -21,13 +21,13 @@ class Category(models.Model):
 
 class Article(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, default='admin', verbose_name='نویسنده')
-    category = models.ManyToManyField(Category, related_name="articles", verbose_name='Category')
-    title = models.CharField(max_length=100, verbose_name='Title')
-    slug = models.SlugField(unique=True, blank=True, verbose_name='Slug')
-    body = CKEditor5Field('Text', config_name='extends')
-    image = models.ImageField(upload_to="images/articles", verbose_name='Image')
-    alt = models.CharField(max_length=100, verbose_name='Alt')
-    view_count = models.PositiveIntegerField(default=0)
+    category = models.ManyToManyField(Category, related_name="articles", verbose_name='دسته بندی')
+    title = models.CharField(max_length=100, verbose_name="عنوان")
+    slug = models.SlugField(unique=True, blank=True, verbose_name='اسلاگ')
+    body = CKEditor5Field('متن', config_name='extends')
+    image = models.ImageField(upload_to="images/articles", verbose_name='تصویر')
+    alt = models.CharField(max_length=100, verbose_name='جایگزین تصویر')
+    view_count = models.PositiveIntegerField(default=0, verbose_name='تعداد بازدید')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated')
 
