@@ -8,7 +8,7 @@ from django.views.generic.base import View, TemplateView
 def article_list(request):
     articles = Article.objects.all()
     category = Category.objects.all()
-    latest = Article.objects.order_by('-created')[:3]
+    latest = Article.objects.order_by('-created_at')[:3]
     page_number = request.GET.get('page')
     paginator = Paginator(articles, 6)
     object_list = paginator.get_page(page_number)
@@ -25,6 +25,7 @@ def article_detail(request, slug):
     comments = articles.comments.all()
     category = Category.objects.all()
     latest = Article.objects.order_by('-created')[:3]
+    form = CommentForm()
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -34,7 +35,7 @@ def article_detail(request, slug):
             if parent_comment_id:
                 parent_comment = get_object_or_404(Comment, pk=parent_comment_id)
             new_comment = form.save(commit=False)
-            new_comment.article = articles
+            new_comment.article = articless
             new_comment.parent_comment = parent_comment
             new_comment.save()
             form = CommentForm()  # Clear the form after submission
