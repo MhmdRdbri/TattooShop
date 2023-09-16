@@ -35,7 +35,7 @@ def article_detail(request, slug):
             if parent_comment_id:
                 parent_comment = get_object_or_404(Comment, pk=parent_comment_id)
             new_comment = form.save(commit=False)
-            new_comment.article = articless
+            new_comment.article = articles
             new_comment.parent_comment = parent_comment
             new_comment.save()
             form = CommentForm()  # Clear the form after submission
