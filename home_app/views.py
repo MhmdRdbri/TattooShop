@@ -50,4 +50,4 @@ def home(request):
         'k_samples': k_samples,
     }
 
-    return render(request, "blog/article_details.html", context)
+    return render(request, "home_app/index.html", context)
