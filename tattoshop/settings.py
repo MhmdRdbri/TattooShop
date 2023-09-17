@@ -88,7 +88,7 @@ WSGI_APPLICATION = 'tattoshop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'tattoonew',
+        'NAME': 'Tattoo_final',
         'USER': 'postgres',
         'PASSWORD': 'admin',
         'HOST': 'localhost',

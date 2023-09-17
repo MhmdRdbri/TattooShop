@@ -13,6 +13,8 @@ def home(request):
     most_watched_patterns = Pattern.objects.order_by('-view_count')[:6]
     courses = Course.objects.all()[:6]
     form = MessageForm()
+    z_samples = Samples.objects.filter(author='Z')[:6]
+    k_samples = Samples.objects.filter(author='K')[:6]
     if request.method == 'POST':
         form = MessageForm(data=request.POST)
 
@@ -38,3 +40,14 @@ def home(request):
             # Form is not valid, you can handle this as needed
             # For example, you could display an error message to the user
             form.add_error('Name', 'Invalid form!')
+
+    context = {
+        'articles': articles,
+        'most_watched_patterns': most_watched_patterns,
+        'courses': courses,
+        'form': form,
+        'z_samples': z_samples,
+        'k_samples': k_samples,
+    }
+
+    return render(request, "blog/article_details.html", context)
