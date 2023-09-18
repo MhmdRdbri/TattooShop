@@ -20,3 +20,4 @@ class PatternAdmin(admin.ModelAdmin):
 admin.site.register(Pattern, PatternAdmin)
 admin.site.register(PatternPostViewLog)
 admin.site.register(Comment)
+admin.site.register(PatternCategory)
