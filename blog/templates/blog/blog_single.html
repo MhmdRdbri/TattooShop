@@ -79,7 +79,6 @@
         </div>
     </div>
     <!--Responsive Menu area-->
-    <!--Responsive Menu area-->
     <div class="rp_mobail_menu_main_wrapper visible-xs">
         <div class="row">
             <div class="col-xs-3">
@@ -116,53 +115,55 @@
         </div>
     </div>
     <!--Responsive Menu area End-->
-    <!--Responsive Menu area End-->
 </header>
-<section class="blog-area-page section blog-area">
+<section class="blog-details-area section blog-area">
     <div class="container">
         <div class="row">
-            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 pd-0">
-                {% for article in articles %}
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <div class="blog-list">
-                            <figure><img src="{{ article.image.url }}" alt="{{ article.alt }}"/></figure>
-                            <div class="content">
-                                <h3><a href="#">{{ article.title }}</a></h3>
-                                <ul class="list-inline">
-                                    <li>By Admin</li>
-                                    <li>{{ article.created_at }}</li>
-                                </ul>
-                                <p>{{ article.body|truncatewords:30|safe }}</p>
-{#                                <a href="{% url 'blog:articles_detail' article.slug %}">Read More >></a>#}
+            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                <div class="content-area">
+                    <figure>
+                        <img src="{{ articles.image.url }}" alt={{ articles.alt }}""/>
+                    </figure>
+                    <h3>{{ articles.title }}</h3>
+                    <ul class="post-date list-inline">
+                        <li><span>by {{ articles.author }}</span></li>
+                        <li><span><i class="fa fa-clock-o"></i> {{ articles.created_at }}</span></li>
+                        <li><span>Category : {{ articles.category }}</span></li>
+                    </ul>
+                    <p>{{ articles.body|safe }}</p>
+                    <div class="comment-box">
+                        <h4>Leave a Reply</h4>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            {{ form.non_field_errors }}
+                            <div class="row">
+                                <div class="col-sm-4 col-xs-12">
+                                    <fieldset>
+                                        {{ form.name.label_tag }}
+                                        {{ form.name }}
+                                    </fieldset>
+                                </div>
+                                <div class="col-sm-4 col-xs-12">
+                                    <fieldset>
+                                        {{ form.email.label_tag }}
+                                        {{ form.email }}
+                                    </fieldset>
+                                </div>
+                                <div class="col-sm-4 col-xs-12">
+                                    <fieldset>
+                                        {{ form.phone.label_tag }}
+                                        {{ form.phone }}
+                                    </fieldset>
+                                </div>
+                                <div class="col-sm-12 col-xs-12">
+                                    <fieldset>
+                                        {{ form.message.label_tag }}
+                                        {{ form.message }}
+                                    </fieldset>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                {% endfor %}
-
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="pagination">
-                        <div class="media">
-                            <div class="pull-left">
-                                <ul class="list-inline tatto_pagi">
-                                    {% if articles.has_previous %}
-                                        <li><a href="?page={{ articles.previous_page_number }}"><i
-                                                class="fa fa-angle-left"></i></a></li>
-                                    {% endif %}
-                                    <li><a href="#" class="active">{{ articles.number }}</a></li>
-                                    {#                                    <li><a href="#">2</a></li>#}
-                                    {#                                    <li><a href="#">3</a></li>#}
-                                    {#                                    <li>...</li>#}
-                                    {#                                    <li><a href="#">24</a></li>#}
-                                    {% if articles.has_next %}
-                                        <li><a href="?page={{ articles.next_page_number }}"><i
-                                                class="fa fa-angle-right"></i></a></li>
-                                    {% endif %}
-                                </ul>
-                            </div>
-                            <div class="pull-right">
-                                <p>Page 1 of 12</p>
-                            </div>
-                        </div>
+                            <button type="submit" class="btn3 bottom_margin"><span>Post a Comments</span></button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -176,35 +177,147 @@
                     </div>
                     <div class="widget categories">
                         <h3>Categories</h3>
-                        {% for cat in category %}
-                            <div class="list-categories media">
-                                <div class="pull-left">
-                                    <span class="blog_anchor_hover"><a href="#">{{ cat.title }}</a></span>
-                                </div>
-                                <div class="pull-right">
-                                    <strong>{{ cat.article_count }}</strong>
-                                </div>
+                        <div class="list-categories media">
+                            <div class="pull-left">
+                                <span class="blog_anchor_hover"><a href="#">Health</a></span>
                             </div>
-                        {% endfor %}
+                            <div class="pull-right">
+                                <strong>(2)</strong>
+                            </div>
+                        </div>
+                        <div class="list-categories media">
+                            <div class="pull-left">
+                                <span class="blog_anchor_hover"><a href="#">Music</a></span>
+                            </div>
+                            <div class="pull-right">
+                                <strong>(3)</strong>
+                            </div>
+                        </div>
+                        <div class="list-categories media">
+                            <div class="pull-left">
+                                <span class="blog_anchor_hover"><a href="#">Personal life</a></span>
+                            </div>
+                            <div class="pull-right">
+                                <strong>(4)</strong>
+                            </div>
+                        </div>
+                        <div class="list-categories media">
+                            <div class="pull-left">
+                                <span class="blog_anchor_hover"><a href="#">Society</a></span>
+                            </div>
+                            <div class="pull-right">
+                                <strong>(5)</strong>
+                            </div>
+                        </div>
+                        <div class="list-categories media">
+                            <div class="pull-left">
+                                <span class="blog_anchor_hover"><a href="#">Travelling</a></span>
+                            </div>
+                            <div class="pull-right">
+                                <strong>(6)</strong>
+                            </div>
+                        </div>
+                        <div class="list-categories media">
+                            <div class="pull-left">
+                                <span class="blog_anchor_hover"><a href="#">Personal life</a></span>
+                            </div>
+                            <div class="pull-right">
+                                <strong>(7)</strong>
+                            </div>
+                        </div>
+                        <div class="list-categories media">
+                            <div class="pull-left">
+                                <span class="blog_anchor_hover"><a href="#">Society</a></span>
+                            </div>
+                            <div class="pull-right">
+                                <strong>(8)</strong>
+                            </div>
+                        </div>
                     </div>
                     <div class="widget recent-post">
                         <h3>Recent Posts</h3>
-                        {% for post in latest %}
-                            <div class="single-post">
-                                <div class="media">
-                                    <div class="pull-left">
-                                        <img src="{{ post.image.url }}" alt="{{ post.alt }}"/>
-                                    </div>
-                                    <div class="post-content">
-                                        <h4><a href="#">{{ post.title }}</a></h4>
-                                        <ul class="list-inline">
-                                            <li><i class="fa fa-user"></i> {{ post.author }} </li>
-                                            <li><i class="fa fa-eye"></i>{{ post.view_count }}</li>
-                                        </ul>
-                                    </div>
+                        <div class="single-post">
+                            <div class="media">
+                                <div class="pull-left">
+                                    <img src="images/blog/sm-1.jpg" alt=""/>
+                                </div>
+                                <div class="post-content">
+                                    <h4><a href="#">Our Effort Makes Brand Success</a></h4>
+                                    <ul class="list-inline">
+                                        <li><i class="fa fa-user"></i> Ricky</li>
+                                        <li><i class="fa fa-eye"></i> 48 Views</li>
+                                    </ul>
                                 </div>
                             </div>
-                        {% endfor %}
+                        </div>
+                        <div class="single-post">
+                            <div class="media">
+                                <div class="pull-left">
+                                    <img src="images/blog/sm-2.jpg" alt=""/>
+                                </div>
+                                <div class="post-content">
+                                    <h4><a href="#">We Denounce With Righteous Indignation </a></h4>
+                                    <ul class="list-inline">
+                                        <li><i class="fa fa-user"></i> Ricky</li>
+                                        <li><i class="fa fa-eye"></i> 48 Views</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-post">
+                            <div class="media">
+                                <div class="pull-left">
+                                    <img src="images/blog/sm-3.jpg" alt=""/>
+                                </div>
+                                <div class="post-content">
+                                    <h4><a href="#">We’ll Make You a Masterpiece</a></h4>
+                                    <ul class="list-inline">
+                                        <li><i class="fa fa-user"></i> Ricky</li>
+                                        <li><i class="fa fa-eye"></i> 48 Views</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget author">
+                        <h3>About Author</h3>
+                        <div class="author-content">
+                            <figure>
+                                <img src="images/blog/10.jpg" alt=""/>
+                                <a href="#" class="btn1"><span>Jeremy Bishop</span></a>
+                            </figure>
+                            <h4>java DEVELOPER</h4>
+                            <ul class="list-inline">
+                                <li><a href="#"><i class="fa fa-facebook-square"></i></a></li>
+                                <li><a href="#"><i class="fa fa-google-plus-square"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter-square"></i></a></li>
+                                <li><a href="#"><i class="fa fa-vimeo-square"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin-square"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="widget instagram">
+                        <h3>Instagram Photos</h3>
+                        <ul class="list-inline">
+                            <li><a href="#"><img src="images/instagram/1.jpg" alt=""/><span><i class="fa fa-search"></i></span></a>
+                            </li>
+                            <li><a href="#"><img src="images/instagram/2.jpg" alt=""/><span><i class="fa fa-search"></i></span></a>
+                            </li>
+                            <li><a href="#"><img src="images/instagram/3.jpg" alt=""/><span><i class="fa fa-search"></i></span></a>
+                            </li>
+                            <li><a href="#"><img src="images/instagram/4.jpg" alt=""/><span><i class="fa fa-search"></i></span></a>
+                            </li>
+                            <li><a href="#"><img src="images/instagram/5.jpg" alt=""/><span><i class="fa fa-search"></i></span></a>
+                            </li>
+                            <li><a href="#"><img src="images/instagram/6.jpg" alt=""/><span><i class="fa fa-search"></i></span></a>
+                            </li>
+                            <li><a href="#"><img src="images/instagram/7.jpg" alt=""/><span><i class="fa fa-search"></i></span></a>
+                            </li>
+                            <li><a href="#"><img src="images/instagram/8.jpg" alt=""/><span><i class="fa fa-search"></i></span></a>
+                            </li>
+                            <li><a href="#"><img src="images/instagram/9.jpg" alt=""/><span><i class="fa fa-search"></i></span></a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -292,6 +405,7 @@
     </div>
 </footer>
 <!--Footer area end here-->
+
 
 <!-- all js here -->
 <!-- jquery latest version -->

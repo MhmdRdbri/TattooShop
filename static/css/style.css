@@ -3964,7 +3964,7 @@ select option {
 }
 .inner_blog_header{
 	position:inherit;
-	background:url(images/banner/bg-1.jpg) 50% 0 repeat-y;
+	background:url(../images/banner/bg-1.jpg) 50% 0 repeat-y;
     background-size: cover;
     background-position: center 0;
     background-repeat: no-repeat;
