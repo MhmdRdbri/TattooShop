@@ -17,7 +17,7 @@ def article_list(request):
         'category': category,
         'latest': latest,
     }
-    return render(request, "blog/blog.html", context)
+    return render(request, "blog/blog_list.html", context)
 
 
 def article_detail(request, slug):
@@ -50,4 +50,4 @@ def article_detail(request, slug):
         'comments': comments,
         'form': form,
     }
-    return render(request, "blog/blog.html", context)
+    return render(request, "blog/blog_list.html", context)
