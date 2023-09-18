@@ -48,14 +48,14 @@ class Article(models.Model):
         verbose_name_plural = 'مقاله ها'
         ordering = ('-created_at',)
 
-    def save(
-            self, force_insert=False, force_update=False, using=None, update_fields=None
-    ):
-        self.slug = slugify(self.title)
-        super(Article, self).save()
+    # def save(
+    #         self, force_insert=False, force_update=False, using=None, update_fields=None
+    # ):
+    #     self.slug = slugify(self.title)
+    #     super(Article, self).save()
 
     def get_absolute_url(self):
-        return reverse('blog:article_detail', kwargs={'slug': self.slug})
+        return reverse('blog:articles_detail', kwargs={'slug': self.slug})
 
     def __str__(self):
         return f"{self.title}"

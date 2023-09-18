@@ -24,7 +24,7 @@ def article_detail(request, slug):
     articles = get_object_or_404(Article, slug=slug)
     comments = articles.comments.all()
     category = Category.objects.all()
-    latest = Article.objects.order_by('-created')[:3]
+    latest = Article.objects.order_by('-created_at')[:3]
     form = CommentForm()
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -50,4 +50,4 @@ def article_detail(request, slug):
         'comments': comments,
         'form': form,
     }
-    return render(request, "blog/blog_list.html", context)
+    return render(request, "blog/blog_single.html", context)
