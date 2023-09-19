@@ -75,3 +75,15 @@ def get_client_ip(request):
     else:
         ip = request.META.get('REMOTE_ADDR')
     return ip
+
+
+def search_view(request):
+    form = SearchForm(request.GET)
+    results = None
+
+    if form.is_valid():
+        query = form.cleaned_data['q']
+        if query:
+            results = Article.objects.filter(title__icontains=query)
+
+    return render(request, 'blog/blog_list.html', {'form': form, 'articles': results})
