@@ -26,6 +26,21 @@ def article_detail(request, slug):
     category = Category.objects.all()
     latest = Article.objects.order_by('-created_at')[:3]
     form = CommentForm()
+
+    client_ip = get_client_ip(request)
+    existing_log_entry = BlogPostViewLog.objects.filter(
+        pattern_post=articles,
+        ip_address=client_ip
+    ).first()
+
+    if not existing_log_entry:
+        BlogPostViewLog.objects.create(
+            blog_post=articles,
+            ip_address=client_ip
+        )
+        articles.view_count += 1
+        articles.save()
+
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -51,3 +66,12 @@ def article_detail(request, slug):
         'form': form,
     }
     return render(request, "blog/blog_single.html", context)
+
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
