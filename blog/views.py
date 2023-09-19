@@ -9,6 +9,11 @@ def article_list(request):
     articles = Article.objects.all()
     category = Category.objects.all()
     latest = Article.objects.order_by('-created_at')[:3]
+
+    search_query = request.GET.get('q')
+    if search_query:
+        articles = articles.filter(title__icontains=search_query)
+
     page_number = request.GET.get('page')
     paginator = Paginator(articles, 6)
     object_list = paginator.get_page(page_number)
@@ -76,14 +81,3 @@ def get_client_ip(request):
         ip = request.META.get('REMOTE_ADDR')
     return ip
 
-
-def search_view(request):
-    form = SearchForm(request.GET)
-    results = None
-
-    if form.is_valid():
-        query = form.cleaned_data['q']
-        if query:
-            results = Article.objects.filter(title__icontains=query)
-
-    return render(request, 'blog/blog_list.html', {'form': form, 'articles': results})

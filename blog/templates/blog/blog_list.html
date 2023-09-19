@@ -133,7 +133,7 @@
                                     <li>{{ article.created_at }}</li>
                                 </ul>
                                 <p>{{ article.body|truncatewords:30|safe }}</p>
-{#                                <a href="{% url 'blog:articles_detail' article.slug %}">Read More >></a>#}
+                                {#                                <a href="{% url 'blog:articles_detail' article.slug %}">Read More >></a>#}
                             </div>
                         </div>
                     </div>
@@ -160,7 +160,7 @@
                                 </ul>
                             </div>
                             <div class="pull-right">
-                                <p>Page 1 of 12</p>
+
                             </div>
                         </div>
                     </div>
@@ -169,9 +169,9 @@
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                 <div class="sidebar">
                     <div class="widget search-area">
-                        <form>
-                            <input type="search" placeholder="Search...">
-                            <button><i class="fa fa-search"></i></button>
+                        <form method="GET">
+                            <input type="text" name='q' placeholder="Search...">
+                            <button type="submit"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
                     <div class="widget categories">
