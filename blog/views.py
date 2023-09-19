@@ -29,7 +29,7 @@ def article_detail(request, slug):
 
     client_ip = get_client_ip(request)
     existing_log_entry = BlogPostViewLog.objects.filter(
-        pattern_post=articles,
+        blog_post=articles,
         ip_address=client_ip
     ).first()
 

@@ -127,7 +127,7 @@
                         <div class="blog-list">
                             <figure><img src="{{ article.image.url }}" alt="{{ article.alt }}"/></figure>
                             <div class="content">
-                                <h3><a href="#">{{ article.title }}</a></h3>
+                                <h3><a href="{% url 'blog:articles_detail' article.slug %}">{{ article.title }}</a></h3>
                                 <ul class="list-inline">
                                     <li>By Admin</li>
                                     <li>{{ article.created_at }}</li>

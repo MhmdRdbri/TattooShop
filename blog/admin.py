@@ -6,7 +6,7 @@ class FlatPageAdmin(admin.ModelAdmin):
     def image_tag(self, obj):
         return format_html('<img src="{}" style="width:80; height:80px"/>'.format(obj.image.url))
 
-    list_display = ('title', 'image_tag', 'author')
+    list_display = ('title', 'image_tag', 'author', 'view_count')
     fieldsets = [
         (
             "Article",
