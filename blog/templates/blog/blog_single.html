@@ -128,7 +128,7 @@
                     <ul class="post-date list-inline">
                         <li><span>by {{ articles.author }}</span></li>
                         <li><span><i class="fa fa-clock-o"></i> {{ articles.created_at }}</span></li>
-                        <li><span>Category : {{ articles.category }}</span></li>
+                        <li><span>Category : {{ articles.title }}</span></li>
                     </ul>
                     <p>{{ articles.body|safe }}</p>
                     <div class="comment-box">
@@ -177,62 +177,16 @@
                     </div>
                     <div class="widget categories">
                         <h3>Categories</h3>
-                        <div class="list-categories media">
-                            <div class="pull-left">
-                                <span class="blog_anchor_hover"><a href="#">Health</a></span>
+                        {% for cat in category %}
+                            <div class="list-categories media">
+                                <div class="pull-left">
+                                    <span class="blog_anchor_hover"><a href="#">{{ cat.title }}</a></span>
+                                </div>
+                                <div class="pull-right">
+                                    <strong>{{ cat.article_count }}</strong>
+                                </div>
                             </div>
-                            <div class="pull-right">
-                                <strong>(2)</strong>
-                            </div>
-                        </div>
-                        <div class="list-categories media">
-                            <div class="pull-left">
-                                <span class="blog_anchor_hover"><a href="#">Music</a></span>
-                            </div>
-                            <div class="pull-right">
-                                <strong>(3)</strong>
-                            </div>
-                        </div>
-                        <div class="list-categories media">
-                            <div class="pull-left">
-                                <span class="blog_anchor_hover"><a href="#">Personal life</a></span>
-                            </div>
-                            <div class="pull-right">
-                                <strong>(4)</strong>
-                            </div>
-                        </div>
-                        <div class="list-categories media">
-                            <div class="pull-left">
-                                <span class="blog_anchor_hover"><a href="#">Society</a></span>
-                            </div>
-                            <div class="pull-right">
-                                <strong>(5)</strong>
-                            </div>
-                        </div>
-                        <div class="list-categories media">
-                            <div class="pull-left">
-                                <span class="blog_anchor_hover"><a href="#">Travelling</a></span>
-                            </div>
-                            <div class="pull-right">
-                                <strong>(6)</strong>
-                            </div>
-                        </div>
-                        <div class="list-categories media">
-                            <div class="pull-left">
-                                <span class="blog_anchor_hover"><a href="#">Personal life</a></span>
-                            </div>
-                            <div class="pull-right">
-                                <strong>(7)</strong>
-                            </div>
-                        </div>
-                        <div class="list-categories media">
-                            <div class="pull-left">
-                                <span class="blog_anchor_hover"><a href="#">Society</a></span>
-                            </div>
-                            <div class="pull-right">
-                                <strong>(8)</strong>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                     <div class="widget recent-post">
                         <h3>Recent Posts</h3>

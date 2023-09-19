@@ -99,4 +99,4 @@ class Comment(models.Model):
         # ordering = ('created_at',)
 
     def __str__(self):
-        return f"Comment by {self.name} on {self.article.title}"
+        return f"{self.name} - {self.article.title}"
