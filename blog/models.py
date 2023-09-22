@@ -6,11 +6,12 @@ from django.utils import timezone
 from django.utils.html import format_html
 from django.utils.text import slugify
 from django_ckeditor_5.fields import CKEditor5Field
+from autoslug import AutoSlugField
 
 
 class Category(models.Model):
     title = models.CharField(max_length=100, verbose_name='Title')
-    slug = models.SlugField(unique=True, verbose_name='Slug')
+    slug = AutoSlugField(populate_from='title', unique=True, default='slug',verbose_name='اسلاگ')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Created')
 
     def __str__(self):
