@@ -82,16 +82,23 @@ def get_client_ip(request):
     return ip
 
 
-def article_list_by_category(request, category_slug):
-    # Get the category object based on the slug
-    category = get_object_or_404(Category, slug=category_slug)
-
-    # Filter articles by the selected category
+def article_list_by_category(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    all_cat = Category.objects.all()
     articles = Article.objects.filter(category=category)
+    latest = Article.objects.order_by('-created_at')[:3]
 
+    search_query = request.GET.get('q')
+    if search_query:
+        articles = articles.filter(title__icontains=search_query)
+
+    page_number = request.GET.get('page')
+    paginator = Paginator(articles, 6)
+    object_list = paginator.get_page(page_number)
     context = {
-        'articles': articles,
+        'articles': object_list,
         'category': category,
+        'latest': latest,
+        'all_cat':all_cat,
     }
-
     return render(request, "blog/blog_list.html", context)

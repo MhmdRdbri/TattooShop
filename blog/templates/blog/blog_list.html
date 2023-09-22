@@ -176,17 +176,31 @@
                     </div>
                     <div class="widget categories">
                         <h3>Categories</h3>
-                        {% for cat in category %}
-                            <div class="list-categories media">
-                                <div class="pull-left">
+                        {% if all_cat %}
+                            {% for cat in all_cat %}
+                                <div class="list-categories media">
+                                    <div class="pull-left">
                                     <span class="blog_anchor_hover"><a
-                                            href="">{{ cat.title }}</a></span>
+                                            href="{% url 'blog:articles_by_category' cat.slug %}">{{ cat.title }}</a></span>
+                                    </div>
+                                    <div class="pull-right">
+                                        <strong>{{ cat.article_count }}</strong>
+                                    </div>
                                 </div>
-                                <div class="pull-right">
-                                    <strong>{{ cat.article_count }}</strong>
+                            {% endfor %}
+                        {% else %}
+                            {% for cat in category %}
+                                <div class="list-categories media">
+                                    <div class="pull-left">
+                                    <span class="blog_anchor_hover"><a
+                                            href="{% url 'blog:articles_by_category' cat.slug %}">{{ cat.title }}</a></span>
+                                    </div>
+                                    <div class="pull-right">
+                                        <strong>{{ cat.article_count }}</strong>
+                                    </div>
                                 </div>
-                            </div>
-                        {% endfor %}
+                            {% endfor %}
+                        {% endif %}
                     </div>
                     <div class="widget recent-post">
                         <h3>Recent Posts</h3>
@@ -197,7 +211,7 @@
                                         <img src="{{ post.image.url }}" alt="{{ post.alt }}"/>
                                     </div>
                                     <div class="post-content">
-                                        <h4><a href="#">{{ post.title }}</a></h4>
+                                        <h4><a href="{% url 'blog:articles_detail' post.slug %}">{{ post.title }}</a></h4>
                                         <ul class="list-inline">
                                             <li><i class="fa fa-user"></i> {{ post.author }} </li>
                                             <li><i class="fa fa-eye"></i>{{ post.view_count }}</li>
