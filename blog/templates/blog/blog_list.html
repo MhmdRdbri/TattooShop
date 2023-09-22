@@ -211,7 +211,8 @@
                                         <img src="{{ post.image.url }}" alt="{{ post.alt }}"/>
                                     </div>
                                     <div class="post-content">
-                                        <h4><a href="{% url 'blog:articles_detail' post.slug %}">{{ post.title }}</a></h4>
+                                        <h4><a href="{% url 'blog:articles_detail' post.slug %}">{{ post.title }}</a>
+                                        </h4>
                                         <ul class="list-inline">
                                             <li><i class="fa fa-user"></i> {{ post.author }} </li>
                                             <li><i class="fa fa-eye"></i>{{ post.view_count }}</li>
