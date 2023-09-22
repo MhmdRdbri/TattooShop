@@ -81,3 +81,17 @@ def get_client_ip(request):
         ip = request.META.get('REMOTE_ADDR')
     return ip
 
+
+def article_list_by_category(request, category_slug):
+    # Get the category object based on the slug
+    category = get_object_or_404(Category, slug=category_slug)
+
+    # Filter articles by the selected category
+    articles = Article.objects.filter(category=category)
+
+    context = {
+        'articles': articles,
+        'category': category,
+    }
+
+    return render(request, "blog/blog_list.html", context)
