@@ -44,7 +44,19 @@ class CommentAdmin(admin.ModelAdmin):
         return True
 
 
+class TagsAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return True
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
 admin.site.register(Article, FlatPageAdmin)
 admin.site.register(Category)
 admin.site.register(Like)
+admin.site.register(Tags, TagsAdmin)
 admin.site.register(Comment, CommentAdmin)

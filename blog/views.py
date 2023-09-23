@@ -7,6 +7,7 @@ from django.views.generic.base import View, TemplateView
 
 def article_list(request):
     articles = Article.objects.all()
+    tags = Tags.objects.all()
     category = Category.objects.all()
     latest = Article.objects.order_by('-created_at')[:3]
 
@@ -21,6 +22,7 @@ def article_list(request):
         'articles': object_list,
         'category': category,
         'latest': latest,
+        'tags':tags,
     }
     return render(request, "blog/blog_list.html", context)
 
