@@ -21,8 +21,8 @@ from django.urls import path, include
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('', include('home_app.urls', namespace='home_app')),
-                  path('', include('blog.urls')),
-                  path('', include('course.urls')),
+                  path('', include('course.urls', namespace='course')),
+                  path('', include('blog.urls', namespace='blog')),
                   path("ckeditor5/", include('django_ckeditor_5.urls'), name="ck_editor_5_upload_file"),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL,
                                                                                            document_root=settings.MEDIA_ROOT)

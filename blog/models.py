@@ -24,7 +24,7 @@ class Article(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, default='admin', verbose_name='نویسنده')
     category = models.ManyToManyField(Category, related_name="articles", verbose_name='دسته بندی')
     title = models.CharField(max_length=100, verbose_name="عنوان")
-    slug = models.SlugField(unique=True, blank=True, verbose_name='اسلاگ')
+    slug = models.SlugField(unique=True, verbose_name='اسلاگ')
     body = CKEditor5Field('متن', config_name='extends')
     image = models.ImageField(upload_to="images/articles", verbose_name='تصویر')
     alt = models.CharField(max_length=100, verbose_name='جایگزین تصویر')
