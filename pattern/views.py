@@ -5,6 +5,7 @@ from django.core.paginator import Paginator
 
 def pattern_list(request):
     patterns = Pattern.objects.all()
+    tags = Tags.objects.all()
     category_title = request.GET.get('category', None)
     if category_title:
         patterns = Pattern.objects.filter(category__title=category_title)
@@ -20,8 +21,9 @@ def pattern_list(request):
         'patterns': object_list,
         'categories': categories,
         'selected_category': category_title,
+        'tags': tags,
     }
-    return render(request, "blog/articles_list.html", context)
+    return render(request, "pattern/pattern_list.html", context)
 
 
 def pattern_detail(request, slug):
@@ -41,7 +43,7 @@ def pattern_detail(request, slug):
         patterns.view_count += 1
         patterns.save()
 
-    return render(request, "blog/articles_list.html", {'patterns': patterns})
+    return render(request, "pattern/pattern_detail.html", {'patterns': patterns})
 
 
 def get_client_ip(request):

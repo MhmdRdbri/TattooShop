@@ -19,7 +19,7 @@ class Pattern(models.Model):
     title = models.CharField(max_length=255)
     category = models.ManyToManyField(PatternCategory, related_name="articles", verbose_name='Category')
     slug = models.SlugField(unique=True, blank=True, verbose_name='Slug')
-    description = CKEditor5Field('Text', config_name='extends')
+    body = CKEditor5Field('Text', config_name='extends')
     video = models.FileField(upload_to='patterns/', blank=True, null=True)
     image = models.ImageField(upload_to='patterns/', blank=True, null=True)
     alt = models.CharField(max_length=100, verbose_name='Alt', default='Alt')
@@ -54,7 +54,8 @@ class Pattern(models.Model):
 class PatternImage(models.Model):
     pattern = models.ForeignKey(Pattern, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to='pattern_images/')
-    description = models.CharField(max_length=255, blank=True)
+    alt = models.CharField(max_length=100, verbose_name='Alt', default='Alt')
+    body = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
         return f"Image for {self.pattern.name}"
@@ -91,3 +92,21 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"Comment by {self.name} on {self.pattern.title}"
+
+
+class Tags(models.Model):
+    description = models.CharField(max_length=500, blank=True, null=True, verbose_name='Description')
+    locale = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:locale')
+    type = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:type')
+    title = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:title')
+    descriptionOg = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:description')
+    site_name = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:site_name')
+    width = models.PositiveIntegerField(blank=True, null=True, verbose_name='Og:image:width')
+    height = models.PositiveIntegerField(blank=True, null=True, verbose_name='Og:image:height')
+
+    class Meta:
+        verbose_name = 'Pattern Page Tag'
+        verbose_name_plural = 'Pattern Page Tags'
+
+    def __str__(self):
+        return "Pattern Page Tags"

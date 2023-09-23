@@ -126,8 +126,8 @@
                     <li><a href="index.html">about</a></li>
                     <li><a href="index.html">price</a></li>
                     <li><a href="index.html">gallery</a></li>
-                    <li><a href="index.html">team</a></li>
                     <li><a href="index.html">shop</a></li>
+                    <li><a href="index.html">team</a></li>
                     <li><a href="index.html">contact</a></li>
                     <li><a href="index.html">blog</a></li>
                 </ul>
@@ -140,39 +140,41 @@
 <section class="blog-area-page section blog-area">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pd-0">
-                {% for course in courses %}
+            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 pd-0">
+                {% for pattern in patterns %}
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                         <div class="blog-list">
-                            <figure><img src="{{ course.media.url }}" alt="{{ course.alt }}"/></figure>
+                            <figure><img src="{{ pattern.image.url }}" alt="{{ pattern.alt }}"/></figure>
                             <div class="content">
-                                <h3><a href="{% url 'course:course_detail' course.slug %}">{{ course.name }}</a></h3>
+{#                                <h3><a href="{% url 'pattern:pattern_detail' pattern.slug %}">{{ pattern.title }}</a>#}
+                                </h3>
                                 <ul class="list-inline">
                                     <li>By Admin</li>
-                                    {#                                    <li>{{ course.created_at }}</li>#}
+                                    <li>{{ pattern.created_at }}</li>
                                 </ul>
-                                <p>{{ course.body|truncatewords:30|safe }}</p>
-                                {#                                <a href="{% url 'blog:articles_detail' article.slug %}">Read More >></a>#}
+                                <p>{{ pattern.body|truncatewords:30|safe }}</p>
+{#                                <a href="{% url 'pattern:pattern_detail' pattern.slug %}">Read More >></a>#}
                             </div>
                         </div>
                     </div>
                 {% endfor %}
+
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="pagination">
                         <div class="media">
                             <div class="pull-left">
                                 <ul class="list-inline tatto_pagi">
-                                    {% if courses.has_previous %}
-                                        <li><a href="?page={{ courses.previous_page_number }}"><i
+                                    {% if patterns.has_previous %}
+                                        <li><a href="?page={{ patterns.previous_page_number }}"><i
                                                 class="fa fa-angle-left"></i></a></li>
                                     {% endif %}
-                                    <li><a href="#" class="active">{{ courses.number }}</a></li>
+                                    <li><a href="#" class="active">{{ patterns.number }}</a></li>
                                     {#                                    <li><a href="#">2</a></li>#}
                                     {#                                    <li><a href="#">3</a></li>#}
                                     {#                                    <li>...</li>#}
                                     {#                                    <li><a href="#">24</a></li>#}
-                                    {% if courses.has_next %}
-                                        <li><a href="?page={{ courses.next_page_number }}"><i
+                                    {% if patterns.has_next %}
+                                        <li><a href="?page={{ patterns.next_page_number }}"><i
                                                 class="fa fa-angle-right"></i></a></li>
                                     {% endif %}
                                 </ul>
@@ -184,7 +186,54 @@
                     </div>
                 </div>
             </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="sidebar">
+                    {#                    <div class="widget search-area">#}
+                    {#                        <form method="GET">#}
+                    {#                            <input type="text" name='q' placeholder="Search...">#}
+                    {#                            <button type="submit"><i class="fa fa-search"></i></button>#}
+                    {#                        </form>#}
+                    {#                    </div>#}
+                    <div class="widget categories" id="category_title">
+                        <h3>Categories</h3>
+                        <form method="GET" action="">
+                            <label for="category-select">Select a category:</label>
+                            {#                            <select id="category-select" name="category">#}
+                            {#                                <option value="">All Categories</option>#}
+                            <input type="radio" name="category" value="" id="category-all"
+                                   {% if not category_select %}checked{% endif %}>
+                            <label for="category-all">All</label>
+                            {% for cat in categories %}
+                                <input type="radio" name="category" value="{{ cat.title }}" id="{{ cat.title }}"
+                                       {% if category_select == "{{ cat.title }}" %}checked{% endif %}>
+                                <label for="{{ cat.title }}">{{ cat.title }}</label>
+                            {% endfor %}
+                            {#                            </select>#}
+                            <button type="submit">Filter</button>
+                        </form>
+                        {#                        <form method="GET" action="">#}
+                        {#                                                    <label for="category-select">Select a category:</label>#}
+                        {#                                                    <select id="category-select" name="category">#}
+                        {#                                                        <option value="">All Categories</option>#}
+                        {#                                                        {% for cat in categories %}#}
+                        {#                                                            <option value="{{ cat.title }}">{{ cat.title }}</option>#}
+                        {#                                                        {% endfor %}#}
+                        {#                                                    </select>#}
+                        {#                                                    <button type="submit">Filter</button>#}
+                        {#                                                </form>#}
 
+                        {#                        <div class="list-categories media">#}
+                        {#                            <div class="pull-left">#}
+                        {#                                    <span class="blog_anchor_hover"><a#}
+                        {#                                            href="{% url 'blog:articles_by_category' cat.slug %}">{{ cat.title }}</a></span>#}
+                        {#                            </div>#}
+                        {#                            <div class="pull-right">#}
+                        {#                                <strong>{{ cat.article_count }}</strong>#}
+                        {#                            </div>#}
+                        {#                        </div>#}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
