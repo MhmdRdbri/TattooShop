@@ -28,6 +28,7 @@ class Course(models.Model):
     class Meta:
         verbose_name = 'دوره'
         verbose_name_plural = "دوره ها"
+        ordering = ('-created_at',)
 
     def __str__(self):
         return self.name
@@ -50,7 +51,7 @@ class Comment(models.Model):
         ordering = ('created_at',)
 
     def __str__(self):
-        return f"{self.name} - {self.article.title}"
+        return f"{self.name} - {self.course.name}"
 
 
 class CourseAttribute(models.Model):
