@@ -22,7 +22,7 @@ def article_list(request):
         'articles': object_list,
         'category': category,
         'latest': latest,
-        'tags':tags,
+        'tags': tags,
     }
     return render(request, "blog/blog_list.html", context)
 
@@ -86,6 +86,7 @@ def get_client_ip(request):
 
 def article_list_by_category(request, slug):
     category = get_object_or_404(Category, slug=slug)
+    tags = Tags.objects.all()
     all_cat = Category.objects.all()
     articles = Article.objects.filter(category=category)
     latest = Article.objects.order_by('-created_at')[:3]
@@ -101,6 +102,7 @@ def article_list_by_category(request, slug):
         'articles': object_list,
         'category': category,
         'latest': latest,
-        'all_cat':all_cat,
+        'all_cat': all_cat,
+        'tags': tags
     }
     return render(request, "blog/blog_list.html", context)
