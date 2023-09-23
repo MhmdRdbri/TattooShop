@@ -1,11 +1,29 @@
 {% load static %}
 <!doctype html>
 <html class="no-js" lang="en">
-<meta charset="utf-8">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Crafter | Tattoo Bootstrap HTML5 Template</title>
-<meta name="description" content="">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Title -->
+    <title>{{ articles.pagetitle }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="Mohammad Roudbari"/>
+    <!-- description -->
+    <meta name="description"
+          content="{{ articles.description }}"/>
+    <!-- canonical -->
+    <link rel="canonical" href="{{ articles.canonical }}">
+
+    <meta property="og:locale" content="{{ articles.localeOg }}">
+    <meta property="og:type" content="{{ articles.typeOg }}">
+    <meta property="og:title" content="{{ articles.titleOg }}">
+    <meta property="og:description" content="{{ articles.descriptionOg }}">
+
+    <meta property="og:site_name" content="{{ articles.site_name }}">
+    <meta property="article:modified_time" content="{{ articles.created }}">
+
+    <meta property="og:image:width" content="{{ articles.widthOg }}">
+    <meta property="og:image:height" content="{{ articles.heightOg }}">
+    <meta property="og:image:type" content="image/jpeg">
 <link rel="shortcut icon" type="image/x-icon" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <!-- Place favicon.ico in the root directory -->
