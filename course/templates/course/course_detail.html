@@ -1,60 +1,57 @@
+{% load static %}
 <!doctype html>
 <html class="no-js" lang="en">
+<!-- Title -->
+<title>{{ articles.pagetitle }}</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="author" content="Mohammad Roudbari"/>
+<!-- description -->
+<meta name="description"
+      content="{{ articles.description }}"/>
+<!-- canonical -->
+<link rel="canonical" href="{{ articles.canonical }}">
 
-<head>
-    <!-- Title -->
-    <title>Sisi Tattoo | Blog</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="author" content="Mohammad Roudbari"/>
-    <!-- description -->
-    <meta name="description"
-          content="{{ tags.first.description }}"/>
-    <!-- canonical -->
-    <link rel="canonical" href="http://127.0.0.1:8000/blog/?page=1">
+<meta property="og:locale" content="{{ articles.localeOg }}">
+<meta property="og:type" content="{{ articles.typeOg }}">
+<meta property="og:title" content="{{ articles.titleOg }}">
+<meta property="og:description" content="{{ articles.descriptionOg }}">
 
+<meta property="og:site_name" content="{{ articles.site_name }}">
+<meta property="article:modified_time" content="{{ articles.created }}">
 
-    <meta property="og:locale" content="{{ tags.first.locale }}">
-    <meta property="og:type" content="{{ tags.first.type }}">
-    <meta property="og:title" content="{{ tags.first.title }}">
-    <meta property="og:description" content="{{ tags.first.description }}">
+<meta property="og:image:width" content="{{ articles.widthOg }}">
+<meta property="og:image:height" content="{{ articles.heightOg }}">
+<meta property="og:image:type" content="image/jpeg">
+<link rel="shortcut icon" type="image/x-icon" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<!-- Place favicon.ico in the root directory -->
 
-    <meta property="og:site_name" content="{{ tags.first.site_name }}">
-    <meta property="article:modified_time" content="">
-
-    <meta property="og:image:width" content="">
-    <meta property="og:image:height" content="">
-    <meta property="og:image:type" content="image/jpeg">
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.png">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <!-- Place favicon.ico in the root directory -->
-
-    <!-- all css here -->
-    <!-- bootstrap v3.3.6 css -->
-    <link rel="stylesheet" href="../../../static/css/bootstrap.min.css"/>
-    <!-- animate css -->
-    <link rel="stylesheet" href='../../../static/css/animate.css'/>
-    <!-- jquery-ui.min css -->
-    <link rel="stylesheet" href='../../../static/css/jquery-ui.min.css'/>
-    <!-- meanmenu css -->
-    <link rel="stylesheet" href='../../../static/css/meanmenu.min.css'/>
-    <!-- owl.carousel css -->
-    <link rel="stylesheet" href='../../../static/css/owl.carousel.min.css'/>
-    <!-- bxslider css -->
-    <link rel="stylesheet" href='../../../static/css/jquery.bxslider.css'/>
-    <!-- magnific popup css -->
-    <link rel="stylesheet" href='../../../static/css/magnific-popup.css'/>
-    <!-- font-awesome css -->
-    <link rel="stylesheet" href='../../../static/css/font-awesome.min.css'/>
-    <link rel="stylesheet" href="../../../static/css/nice-select.css"/>
-    <!-- style css -->
-    <link rel="stylesheet" href="../../../static/css/style.css"/>
-    <!-- responsive css -->
-    <link rel="stylesheet" href='../../../static/css/responsive.css'/>
-    <!-- modernizr css -->
-    <script src='../../../static/js/vendor/modernizr-2.8.3.min.js'></script>
-</head>
+<!-- all css here -->
+<!-- bootstrap v3.3.6 css -->
+<link rel="stylesheet" href="../../../static/css/bootstrap.min.css"/>
+<!-- animate css -->
+<link rel="stylesheet" href='../../../static/css/animate.css'/>
+<!-- jquery-ui.min css -->
+<link rel="stylesheet" href='../../../static/css/jquery-ui.min.css'/>
+<!-- meanmenu css -->
+<link rel="stylesheet" href='../../../static/css/meanmenu.min.css'/>
+<!-- owl.carousel css -->
+<link rel="stylesheet" href='../../../static/css/owl.carousel.min.css'/>
+<!-- bxslider css -->
+<link rel="stylesheet" href='../../../static/css/jquery.bxslider.css'/>
+<!-- magnific popup css -->
+<link rel="stylesheet" href='../../../static/css/magnific-popup.css'/>
+<!-- font-awesome css -->
+<link rel="stylesheet" href='../../../static/css/font-awesome.min.css'/>
+<link rel="stylesheet" href="../../../static/css/nice-select.css"/>
+<!-- style css -->
+<link rel="stylesheet" href="../../../static/css/style.css"/>
+<!-- responsive css -->
+<link rel="stylesheet" href='../../../static/css/responsive.css'/>
+<!-- modernizr css -->
+<script src='../../../static/js/vendor/modernizr-2.8.3.min.js'></script>
 
 <body>
 <!--[if lt IE 8]>
@@ -80,7 +77,7 @@
                     <ul class="menu-buttons list-inline">
                         <li>
                             <ul class="list-inline my_navi">
-                                <li><a href="{% url 'home_app:home' %}">Home</a></li>
+                                <li><a href='{% url 'home_app:home' %}'>Home</a></li>
                                 <li><a href="index.html">services</a></li>
                                 <li><a href="index.html">about</a></li>
                                 <li><a href="index.html">price</a></li>
@@ -97,7 +94,6 @@
             </div>
         </div>
     </div>
-    <!--Responsive Menu area-->
     <!--Responsive Menu area-->
     <div class="rp_mobail_menu_main_wrapper visible-xs">
         <div class="row">
@@ -126,8 +122,8 @@
                     <li><a href="index.html">about</a></li>
                     <li><a href="index.html">price</a></li>
                     <li><a href="index.html">gallery</a></li>
-                    <li><a href="index.html">team</a></li>
                     <li><a href="index.html">shop</a></li>
+                    <li><a href="index.html">team</a></li>
                     <li><a href="index.html">contact</a></li>
                     <li><a href="index.html">blog</a></li>
                 </ul>
@@ -135,56 +131,57 @@
         </div>
     </div>
     <!--Responsive Menu area End-->
-    <!--Responsive Menu area End-->
 </header>
-<section class="blog-area-page section blog-area">
+<section class="blog-details-area section blog-area">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pd-0">
-                {% for course in courses %}
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <div class="blog-list">
-                            <figure><img src="{{ course.media.url }}" alt="{{ course.alt }}"/></figure>
-                            <div class="content">
-                                <h3><a href="{% url 'course:course_detail' course.slug %}">{{ course.name }}</a></h3>
-                                <ul class="list-inline">
-                                    <li>By Admin</li>
-                                    {#                                    <li>{{ course.created_at }}</li>#}
-                                </ul>
-                                <p>{{ course.body|truncatewords:30|safe }}</p>
-                                {#                                <a href="{% url 'blog:articles_detail' article.slug %}">Read More >></a>#}
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="content-area">
+                    <figure>
+                        <img src="{{ courses.media.url }}" alt={{ courses.alt }}""/>
+                    </figure>
+                    <h3>{{ courses.title }}</h3>
+                    <ul class="post-date list-inline">
+                        <li><span>by <strong>Admin</strong></span></li>
+                        <li><span><i class="fa fa-clock-o"></i> {{ courses.created_at }}</span></li>
+                    </ul>
+                    <p>{{ courses.body|safe }}</p>
+                    <div class="comment-box">
+                        <h4>Leave a Reply</h4>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            {{ form.non_field_errors }}
+                            <div class="row">
+                                <div class="col-sm-4 col-xs-12">
+                                    <fieldset>
+                                        {{ form.name.label_tag }}
+                                        {{ form.name }}
+                                    </fieldset>
+                                </div>
+                                <div class="col-sm-4 col-xs-12">
+                                    <fieldset>
+                                        {{ form.email.label_tag }}
+                                        {{ form.email }}
+                                    </fieldset>
+                                </div>
+                                <div class="col-sm-4 col-xs-12">
+                                    <fieldset>
+                                        {{ form.phone.label_tag }}
+                                        {{ form.phone }}
+                                    </fieldset>
+                                </div>
+                                <div class="col-sm-12 col-xs-12">
+                                    <fieldset>
+                                        {{ form.message.label_tag }}
+                                        {{ form.message }}
+                                    </fieldset>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                {% endfor %}
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="pagination">
-                        <div class="media">
-                            <div class="pull-left">
-                                <ul class="list-inline tatto_pagi">
-                                    {% if courses.has_previous %}
-                                        <li><a href="?page={{ courses.previous_page_number }}"><i
-                                                class="fa fa-angle-left"></i></a></li>
-                                    {% endif %}
-                                    <li><a href="#" class="active">{{ courses.number }}</a></li>
-                                    {#                                    <li><a href="#">2</a></li>#}
-                                    {#                                    <li><a href="#">3</a></li>#}
-                                    {#                                    <li>...</li>#}
-                                    {#                                    <li><a href="#">24</a></li>#}
-                                    {% if courses.has_next %}
-                                        <li><a href="?page={{ courses.next_page_number }}"><i
-                                                class="fa fa-angle-right"></i></a></li>
-                                    {% endif %}
-                                </ul>
-                            </div>
-                            <div class="pull-right">
-
-                            </div>
-                        </div>
+                            <button type="submit" class="btn3 bottom_margin"><span>Post a Comments</span></button>
+                        </form>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
@@ -269,6 +266,7 @@
     </div>
 </footer>
 <!--Footer area end here-->
+
 
 <!-- all js here -->
 <!-- jquery latest version -->

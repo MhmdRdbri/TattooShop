@@ -11,6 +11,7 @@ class Course(models.Model):
     alt = models.CharField(max_length=100, verbose_name='Alt', blank=True, null=True)
     body = CKEditor5Field('Text', config_name='extends', blank=True, null=True)
     slug = models.SlugField(unique=True, max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     # tags
     pagetitle = models.CharField(max_length=500, blank=True, null=True, verbose_name='Title')
@@ -30,6 +31,26 @@ class Course(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Comment(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='comments')
+    parent_comment = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
+    name = models.CharField(max_length=100, verbose_name='Name')
+    phone = models.CharField(max_length=15, verbose_name='Phone')
+    email = models.EmailField(max_length=255, verbose_name='Email')
+    message = models.TextField(verbose_name='Message')
+    # created = models.DateTimeField(default=timezone.now, verbose_name='Created')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated')
+
+    class Meta:
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
+        ordering = ('created_at',)
+
+    def __str__(self):
+        return f"{self.name} - {self.article.title}"
 
 
 class CourseAttribute(models.Model):
