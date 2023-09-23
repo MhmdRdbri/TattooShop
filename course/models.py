@@ -7,7 +7,7 @@ class Course(models.Model):
     media = models.FileField(upload_to='images/course', blank=True, null=True)
     alt = models.CharField(max_length=100, verbose_name='Alt', blank=True, null=True)
     body = CKEditor5Field('Text', config_name='extends', blank=True, null=True)
-    slug = models.SlugField(unique=True, blank=True, verbose_name='Slug')
+    slug = models.SlugField(unique=True, verbose_name='Slug')
 
     # tags
     pagetitle = models.CharField(max_length=500, blank=True, null=True, verbose_name='Title')

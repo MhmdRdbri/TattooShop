@@ -14,7 +14,7 @@ def course_list(request):
         'courses': object_list,
         'tags': tags,
     }
-    return render(request, "blog/articles_list.html", context)
+    return render(request, "course/course_list.html", context)
 
 
 def course_detail(request, slug):

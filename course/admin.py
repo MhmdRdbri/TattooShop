@@ -31,7 +31,7 @@ class CourseAdmin(admin.ModelAdmin):
 
 class TagsAdmin(admin.ModelAdmin):
     def has_add_permission(self, request):
-        return True
+        return False
 
     def has_change_permission(self, request, obj=None):
         return True
