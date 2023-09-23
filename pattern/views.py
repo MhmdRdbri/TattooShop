@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import *
 from django.core.paginator import Paginator
+from .forms import *
 
 
 def pattern_list(request):
@@ -29,6 +30,24 @@ def pattern_list(request):
 def pattern_detail(request, slug):
     patterns = get_object_or_404(Pattern, slug=slug)
 
+    form = CommentForm()
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            parent_comment_id = request.POST.get('parent_comment_id')
+            parent_comment = None
+
+            if parent_comment_id:
+                parent_comment = get_object_or_404(Comment, pk=parent_comment_id)
+            new_comment = form.save(commit=False)
+            new_comment.patterns = patterns
+            new_comment.parent_comment = parent_comment
+            new_comment.save()
+            form = CommentForm()  # Clear the form after submission
+        else:
+            form = CommentForm()
+
     client_ip = get_client_ip(request)
     existing_log_entry = PatternPostViewLog.objects.filter(
         pattern_post=patterns,
@@ -43,7 +62,7 @@ def pattern_detail(request, slug):
         patterns.view_count += 1
         patterns.save()
 
-    return render(request, "pattern/pattern_detail.html", {'patterns': patterns})
+    return render(request, "pattern/pattern_detail.html", {'patterns': patterns, 'form': form, })
 
 
 def get_client_ip(request):

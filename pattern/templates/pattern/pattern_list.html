@@ -146,14 +146,14 @@
                         <div class="blog-list">
                             <figure><img src="{{ pattern.image.url }}" alt="{{ pattern.alt }}"/></figure>
                             <div class="content">
-{#                                <h3><a href="{% url 'pattern:pattern_detail' pattern.slug %}">{{ pattern.title }}</a>#}
+                                <h3><a href="{% url 'pattern:pattern_detail' pattern.slug %}">{{ pattern.title }}</a>
                                 </h3>
                                 <ul class="list-inline">
                                     <li>By Admin</li>
                                     <li>{{ pattern.created_at }}</li>
                                 </ul>
                                 <p>{{ pattern.body|truncatewords:30|safe }}</p>
-{#                                <a href="{% url 'pattern:pattern_detail' pattern.slug %}">Read More >></a>#}
+                                <a href="">Read More >></a>
                             </div>
                         </div>
                     </div>

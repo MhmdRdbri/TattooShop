@@ -41,14 +41,8 @@ class Pattern(models.Model):
     def __str__(self):
         return f"{self.title}"
 
-    def save(
-            self, force_insert=False, force_update=False, using=None, update_fields=None
-    ):
-        self.slug = slugify(self.title)
-        super(Pattern, self).save()
-
     def get_absolute_url(self):
-        return reverse('blog:article_detail', kwargs={'slug': self.slug})
+        return reverse('pattern:pattern_detail', kwargs={'slug': self.slug})
 
 
 class PatternImage(models.Model):
