@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import *
 from django.core.paginator import Paginator
+from blog.models import *
 
 
 def course_list(request):
@@ -22,4 +23,4 @@ def course_detail(request, slug):
     context = {
         'courses': course,
     }
-    return render(request, "blog/articles_list.html", context)
+    return render(request, "course/course_list.html", context)

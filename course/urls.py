@@ -3,6 +3,6 @@ from . import views
 
 app_name = "course"
 urlpatterns = [
-    path("course/", views.course_list, name="course_list"),
-    # path("<slug:slug>/", views.article_detail, name="articles_detail"),
+    path("", views.course_list, name="course_list"),
+    path("<slug:slug>/", views.course_detail, name="course_detail"),
 ]
