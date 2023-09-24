@@ -44,7 +44,7 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ('course', 'name', 'email',)
 
     def has_add_permission(self, request):
-        return True
+        return False
 
     def has_change_permission(self, request, obj=None):
         return False

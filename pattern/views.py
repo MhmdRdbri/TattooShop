@@ -28,8 +28,7 @@ def pattern_list(request):
 
 
 def pattern_detail(request, slug):
-    patterns = get_object_or_404(Pattern, slug=slug)
-
+    pattern = get_object_or_404(Pattern, slug=slug)
     form = CommentForm()
 
     if request.method == 'POST':
@@ -40,29 +39,30 @@ def pattern_detail(request, slug):
 
             if parent_comment_id:
                 parent_comment = get_object_or_404(Comment, pk=parent_comment_id)
+
+            # Create the comment, set the pattern field, and save it
             new_comment = form.save(commit=False)
-            new_comment.patterns = patterns
+            new_comment.pattern = pattern  # Set the pattern relationship
             new_comment.parent_comment = parent_comment
             new_comment.save()
+
             form = CommentForm()  # Clear the form after submission
-        else:
-            form = CommentForm()
 
     client_ip = get_client_ip(request)
     existing_log_entry = PatternPostViewLog.objects.filter(
-        pattern_post=patterns,
+        pattern_post=pattern,
         ip_address=client_ip
     ).first()
 
     if not existing_log_entry:
         PatternPostViewLog.objects.create(
-            blog_post=patterns,
+            pattern_post=pattern,
             ip_address=client_ip
         )
-        patterns.view_count += 1
-        patterns.save()
+        pattern.view_count += 1
+        pattern.save()
 
-    return render(request, "pattern/pattern_detail.html", {'patterns': patterns, 'form': form, })
+    return render(request, "pattern/pattern_detail.html", {'pattern': pattern, 'form': form})
 
 
 def get_client_ip(request):

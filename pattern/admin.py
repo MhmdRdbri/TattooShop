@@ -17,8 +17,21 @@ class PatternAdmin(admin.ModelAdmin):
     inlines = [PatternImageInline]
 
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('pattern', 'name', 'email',)
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return True
+
+
 admin.site.register(Pattern, PatternAdmin)
 admin.site.register(PatternPostViewLog)
-admin.site.register(Comment)
+admin.site.register(Comment, CommentAdmin)
 admin.site.register(PatternCategory)
 admin.site.register(Tags)

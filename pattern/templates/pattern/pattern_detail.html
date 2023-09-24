@@ -138,14 +138,14 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="content-area">
                     <figure>
-                        <img src="{{ patterns.image.url }}" alt={{ patterns.alt }}""/>
+                        <img src="{{ pattern.image.url }}" alt={{ pattern.alt }}""/>
                     </figure>
-                    <h3>{{ patterns.title }}</h3>
+                    <h3>{{ pattern.title }}</h3>
                     <ul class="post-date list-inline">
                         <li><span>by <strong>Admin</strong></span></li>
-                        <li><span><i class="fa fa-clock-o"></i> {{ patterns.created_at }}</span></li>
+                        <li><span><i class="fa fa-clock-o"></i> {{ pattern.created_at }}</span></li>
                     </ul>
-                    <p>{{ patterns.body|safe }}</p>
+                    <p>{{ pattern.body|safe }}</p>
                     <div class="comment-box">
                         <h4>Leave a Reply</h4>
                         <form action="" method="post">

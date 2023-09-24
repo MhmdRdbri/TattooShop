@@ -74,10 +74,10 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated')
 
-    def save(self, *args, **kwargs):
-        if not self.created_at:
-            self.created = timezone.now()
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     if not self.created_at:
+    #         self.created = timezone.now()
+    #     super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Comment'
