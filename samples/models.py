@@ -24,6 +24,7 @@ class Samples(models.Model):
     author = models.CharField(max_length=100, choices=Author, default='ضیائی', verbose_name="توسط")
     body = CKEditor5Field('توضیحات', config_name='extends')
     image = models.ImageField(upload_to='patterns/')
+    alt = models.CharField(max_length=250, default='Type...')
     video = models.FileField(upload_to='video/samples', verbose_name='ویدیو طرح')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='آپدیت')
@@ -46,6 +47,7 @@ class Samples(models.Model):
     class Meta:
         verbose_name = 'طرح'
         verbose_name_plural = 'طرح ها'
+        ordering = ('-created_at',)
 
 
 class Comment(models.Model):

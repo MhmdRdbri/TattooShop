@@ -13,8 +13,8 @@ def home(request):
     most_watched_patterns = Pattern.objects.order_by('-view_count')[:6]
     courses = Course.objects.all()[:6]
     form = MessageForm()
-    z_samples = Samples.objects.filter(author='Z')[:6]
-    k_samples = Samples.objects.filter(author='K')[:6]
+    z_samples = Samples.objects.filter(author='ضیائی')[:6]
+    k_samples = Samples.objects.filter(author='کارآموز')[:6]
     if request.method == 'POST':
         form = MessageForm(data=request.POST)
 

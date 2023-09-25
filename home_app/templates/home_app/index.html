@@ -482,42 +482,6 @@
                                     >
                                 </li>
                             {% endfor %}
-                            {#                            <li#}
-                            {#                                    role="presentation"#}
-                            {#                                    class="wow animated fadeIn"#}
-                            {#                                    data-wow-duration="1.5s"#}
-                            {#                            >#}
-                            {#                                <a href="#Design" role="tab" data-toggle="tab"#}
-                            {#                                >Tattoo Design</a#}
-                            {#                                >#}
-                            {#                            </li>#}
-                            {#                            <li#}
-                            {#                                    role="presentation"#}
-                            {#                                    class="wow animated fadeIn"#}
-                            {#                                    data-wow-duration="1.5s"#}
-                            {#                            >#}
-                            {#                                <a href="#Merch" role="tab" data-toggle="tab"#}
-                            {#                                >Jewelry & Merch</a#}
-                            {#                                >#}
-                            {#                            </li>#}
-                            {#                            <li#}
-                            {#                                    role="presentation"#}
-                            {#                                    class="wow animated fadeIn"#}
-                            {#                                    data-wow-duration="1.5s"#}
-                            {#                            >#}
-                            {#                                <a href="#modifications" role="tab" data-toggle="tab"#}
-                            {#                                >Tattoo modifications</a#}
-                            {#                                >#}
-                            {#                            </li>#}
-                            {#                            <li#}
-                            {#                                    role="presentation"#}
-                            {#                                    class="wow animated fadeIn"#}
-                            {#                                    data-wow-duration="1.5s"#}
-                            {#                            >#}
-                            {#                                <a href="#Permanent" role="tab" data-toggle="tab"#}
-                            {#                                >Permanent Make-Up</a#}
-                            {#                                >#}
-                            {#                            </li>#}
                         </ul>
                     </div>
                 </div>
@@ -630,16 +594,10 @@
                                 <a class="active" data-group="all"><span></span>All</a>
                             </li>
                             <li>
-                                <a data-group="business"><span></span>TATTOO DESIGN</a>
+                                <a data-group="z"><span></span>نمونه کار آقای ضیائی</a>
                             </li>
                             <li>
-                                <a data-group="website"><span></span> PIERCING</a>
-                            </li>
-                            <li>
-                                <a data-group="logo"> <span></span>MAKE-UP </a>
-                            </li>
-                            <li>
-                                <a data-group="business"><span></span> JEWELRY & MERCH </a>
+                                <a data-group="k"><span></span>نمونه کار کارآموز</a>
                             </li>
                         </ul>
                     </div>
@@ -649,143 +607,55 @@
                         <div class="portfolio-filter clearfix text-center"></div>
                         <div class="row three-column">
                             <div id="gridWrapper" class="clearfix">
-                                <div
-                                        class="col-xs-12 col-sm-6 col-md-4 portfolio-wrapper III_column"
-                                        data-groups='["all", "website", "logo"]'
-                                >
-                                    <div class="portfolio-thumb">
-                                        <div class="gc_filter_cont_overlay_wrapper">
-                                            <img
-                                                    src="images/gallery/1.jpg"
-                                                    class="zoom image img-responsive"
-                                                    alt="service_img"
-                                            />
-                                            <div class="gc_filter_cont_overlay">
-                                                <div class="gc_filter_text">
-                                                    <a href="images/gallery/1.jpg"
-                                                    ><i class="fa fa-search"></i
-                                                    ></a>
+                                {% for z in z_samples %}
+                                    <div
+                                            class="col-xs-12 col-sm-6 col-md-4 portfolio-wrapper III_column"
+                                            data-groups='["all", "z"]'
+                                    >
+                                        <div class="portfolio-thumb">
+                                            <div class="gc_filter_cont_overlay_wrapper">
+                                                <img
+                                                        src="{{ z.image.url }}"
+                                                        class="zoom image img-responsive"
+                                                        alt="{{ z.alt }}"
+                                                />
+                                                <div class="gc_filter_cont_overlay">
+                                                    <div class="gc_filter_text">
+                                                        <a href="{{ z.image.url }}"
+                                                        ><i class="fa fa-search"></i
+                                                        ></a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- /.portfolio-thumb -->
                                     </div>
-                                    <!-- /.portfolio-thumb -->
-                                </div>
+                                {% endfor %}
 
-                                <div
-                                        class="col-xs-12 col-sm-6 col-md-4 portfolio-wrapper III_column"
-                                        data-groups='["all", "business", "website", "photoshop"]'
-                                >
-                                    <div class="portfolio-thumb">
-                                        <div class="gc_filter_cont_overlay_wrapper">
-                                            <img
-                                                    src="images/gallery/2.jpg"
-                                                    class="zoom image img-responsive"
-                                                    alt="service_img"
-                                            />
-                                            <div class="gc_filter_cont_overlay">
-                                                <div class="gc_filter_text">
-                                                    <a href="images/gallery/2.jpg"
-                                                    ><i class="fa fa-search"></i
-                                                    ></a>
+                                {% for k in k_samples %}
+                                    <div
+                                            class="col-xs-12 col-sm-6 col-md-4 portfolio-wrapper III_column"
+                                            data-groups='["all", "k"]'
+                                    >
+                                        <div class="portfolio-thumb">
+                                            <div class="gc_filter_cont_overlay_wrapper">
+                                                <img
+                                                        src="{{ k.image.url }}"
+                                                        class="zoom image img-responsive"
+                                                        alt="{{ k.alt }}"
+                                                />
+                                                <div class="gc_filter_cont_overlay">
+                                                    <div class="gc_filter_text">
+                                                        <a href="{{ k.image.url }}"
+                                                        ><i class="fa fa-search"></i
+                                                        ></a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- /.portfolio-thumb -->
                                     </div>
-                                    <!-- /.portfolio-thumb -->
-                                </div>
-
-                                <div
-                                        class="col-xs-12 col-sm-6 col-md-4 portfolio-wrapper III_column"
-                                        data-groups='["all", "logo", "photoshop"]'
-                                >
-                                    <div class="portfolio-thumb">
-                                        <div class="gc_filter_cont_overlay_wrapper">
-                                            <img
-                                                    src="images/gallery/3.jpg"
-                                                    class="zoom image img-responsive"
-                                                    alt="service_img"
-                                            />
-                                            <div class="gc_filter_cont_overlay">
-                                                <div class="gc_filter_text">
-                                                    <a href="images/gallery/3.jpg"
-                                                    ><i class="fa fa-search"></i
-                                                    ></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /.portfolio-thumb -->
-                                </div>
-
-                                <div
-                                        class="col-xs-12 col-sm-6 col-md-4 portfolio-wrapper III_column"
-                                        data-groups='["all", "logo", "website", "business"]'
-                                >
-                                    <div class="portfolio-thumb">
-                                        <div class="gc_filter_cont_overlay_wrapper">
-                                            <img
-                                                    src="images/gallery/4.jpg"
-                                                    class="zoom image img-responsive"
-                                                    alt="service_img"
-                                            />
-                                            <div class="gc_filter_cont_overlay">
-                                                <div class="gc_filter_text">
-                                                    <a href="images/gallery/4.jpg"
-                                                    ><i class="fa fa-search"></i
-                                                    ></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /.portfolio-thumb -->
-                                </div>
-
-                                <div
-                                        class="col-xs-12 col-sm-6 col-md-4 portfolio-wrapper III_column"
-                                        data-groups='["all", "business", "website", "photoshop"]'
-                                >
-                                    <div class="portfolio-thumb">
-                                        <div class="gc_filter_cont_overlay_wrapper">
-                                            <img
-                                                    src="images/gallery/5.jpg"
-                                                    class="zoom image img-responsive"
-                                                    alt="service_img"
-                                            />
-                                            <div class="gc_filter_cont_overlay">
-                                                <div class="gc_filter_text">
-                                                    <a href="images/gallery/5.jpg"
-                                                    ><i class="fa fa-search"></i
-                                                    ></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /.portfolio-thumb -->
-                                </div>
-
-                                <div
-                                        class="col-xs-12 col-sm-6 col-md-4 portfolio-wrapper III_column"
-                                        data-groups='["all", "business", "website", "logo"]'
-                                >
-                                    <div class="portfolio-thumb">
-                                        <div class="gc_filter_cont_overlay_wrapper">
-                                            <img
-                                                    src="images/gallery/6.jpg"
-                                                    class="zoom image img-responsive"
-                                                    alt="service_img"
-                                            />
-                                            <div class="gc_filter_cont_overlay">
-                                                <div class="gc_filter_text">
-                                                    <a href="images/gallery/6.jpg"
-                                                    ><i class="fa fa-search"></i
-                                                    ></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /.portfolio-thumb -->
-                                </div>
+                                {% endfor %}
                             </div>
                             <!--/#gridWrapper-->
                         </div>
