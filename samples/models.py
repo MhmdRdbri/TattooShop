@@ -13,15 +13,15 @@ class SamplesCategory(models.Model):
 
 class Samples(models.Model):
     Author = (
-        ('Z', 'ضیائی'),
-        ('K', 'کارآموز'),
+        ('ضیائی', 'ضیائی'),
+        ('کارآموز', 'کارآموز'),
     )
 
     name = models.CharField(max_length=250, verbose_name='نام طرح')
     title = models.CharField(max_length=250, verbose_name='عتوان طرح')
     slug = models.SlugField(unique=True, verbose_name='اسلاگ')
     category = models.ManyToManyField(SamplesCategory, related_name="samples", verbose_name='دسته بندی')
-    author = models.CharField(max_length=1, choices=Author, default='Z', verbose_name="توسط")
+    author = models.CharField(max_length=100, choices=Author, default='ضیائی', verbose_name="توسط")
     body = CKEditor5Field('توضیحات', config_name='extends')
     image = models.ImageField(upload_to='patterns/')
     video = models.FileField(upload_to='video/samples', verbose_name='ویدیو طرح')
@@ -47,12 +47,6 @@ class Samples(models.Model):
         verbose_name = 'طرح'
         verbose_name_plural = 'طرح ها'
 
-    def save(
-            self, force_insert=False, force_update=False, using=None, update_fields=None
-    ):
-        self.slug = slugify(self.title)
-        super(Samples, self).save()
-
 
 class Tags(models.Model):
     description = models.CharField(max_length=500, blank=True, null=True, verbose_name='Description')
@@ -66,7 +60,7 @@ class Tags(models.Model):
 
     class Meta:
         verbose_name = 'Sample Page Tag'
-        verbose_name_plural = 'Sanple Page Tags'
+        verbose_name_plural = 'Sample Page Tags'
 
     def __str__(self):
         return "Sample Page Tags"

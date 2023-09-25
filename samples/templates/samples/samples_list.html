@@ -149,7 +149,7 @@
                                 {#                                <h3><a href="{% url 'pattern:pattern_detail' sample.slug %}">{{ sample.title }}</a>#}
                                 {#                                </h3>#}
                                 <ul class="list-inline">
-                                    <li>By Admin</li>
+                                    <li>By {{ sample.author }}</li>
                                     <li>{{ sample.created_at }}</li>
                                 </ul>
                                 <p>{{ sample.body|truncatewords:30|safe }}</p>

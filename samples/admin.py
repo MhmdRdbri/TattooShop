@@ -4,7 +4,7 @@ from django import forms
 
 
 class TagsAdmin(admin.ModelAdmin):
-    list_display = ('__all__',)
+    list_display = ('description', 'locale', 'type', 'title', 'descriptionOg', 'site_name', 'width', 'height')
 
     def get_form(self, request, obj=None, **kwargs):
         if obj:  # If an object already exists, allow editing only
@@ -15,13 +15,17 @@ class TagsAdmin(admin.ModelAdmin):
         # Check if there is already an existing product
         return not Tags.objects.exists()
 
+    def has_delete_permission(self, request, obj=None):
+        # Disallow product deletion
+        return False
+
 
 class TagsAdminForm(forms.ModelForm):
     class Meta:
         model = Tags
-        fields = ['__all', ]
+        fields = ['description', 'locale', 'type', 'title', 'descriptionOg', 'site_name', 'width', 'height']
 
 
 admin.site.register(Samples)
 admin.site.register(SamplesCategory)
-admin.site.register(Tags)
+admin.site.register(Tags, TagsAdmin)
