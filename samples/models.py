@@ -49,7 +49,7 @@ class Samples(models.Model):
 
 
 class Comment(models.Model):
-    pattern = models.ForeignKey(Pattern, on_delete=models.CASCADE, related_name='comments')
+    sample = models.ForeignKey(Samples, on_delete=models.CASCADE, related_name='comments')
     parent_comment = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
     name = models.CharField(max_length=100, verbose_name='Name')
     phone = models.CharField(max_length=15, verbose_name='Phone')
@@ -64,7 +64,7 @@ class Comment(models.Model):
         ordering = ('-created_at',)
 
     def __str__(self):
-        return f"Comment by {self.name} on {self.pattern.title}"
+        return f"Comment by {self.name} on {self.sample.title}"
 
 
 class Tags(models.Model):

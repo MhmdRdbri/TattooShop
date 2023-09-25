@@ -29,3 +29,4 @@ class TagsAdminForm(forms.ModelForm):
 admin.site.register(Samples)
 admin.site.register(SamplesCategory)
 admin.site.register(Tags, TagsAdmin)
+admin.site.register(Comment)
