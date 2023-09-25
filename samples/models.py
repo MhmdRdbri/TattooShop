@@ -48,6 +48,25 @@ class Samples(models.Model):
         verbose_name_plural = 'طرح ها'
 
 
+class Comment(models.Model):
+    pattern = models.ForeignKey(Pattern, on_delete=models.CASCADE, related_name='comments')
+    parent_comment = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
+    name = models.CharField(max_length=100, verbose_name='Name')
+    phone = models.CharField(max_length=15, verbose_name='Phone')
+    email = models.EmailField(max_length=255, verbose_name='Email')
+    message = models.TextField(verbose_name='Message')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated')
+
+    class Meta:
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
+        ordering = ('-created_at',)
+
+    def __str__(self):
+        return f"Comment by {self.name} on {self.pattern.title}"
+
+
 class Tags(models.Model):
     description = models.CharField(max_length=500, blank=True, null=True, verbose_name='Description')
     locale = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:locale')
