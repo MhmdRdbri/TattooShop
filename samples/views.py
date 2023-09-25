@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from .models import *
+from .forms import *
 
 
 def sample_list(request):
@@ -27,9 +28,29 @@ def sample_list(request):
 
 
 def sample_detail(request, slug):
-    samples = get_object_or_404(Samples, slug=slug)
+    sample = get_object_or_404(Samples, slug=slug)
+
+    form = CommentForm()
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            parent_comment_id = request.POST.get('parent_comment_id')
+            parent_comment = None
+
+            if parent_comment_id:
+                parent_comment = get_object_or_404(Comment, pk=parent_comment_id)
+
+            # Create the comment, set the pattern field, and save it
+            new_comment = form.save(commit=False)
+            new_comment.sample = sample  # Set the pattern relationship
+            new_comment.parent_comment = parent_comment
+            new_comment.save()
+
+            form = CommentForm()  # Clear the form after submission
 
     context = {
-        'samples': samples,
+        'sample': sample,
+        'form': form,
     }
-    return render(request, "blog/articles_list.html", context)
+    return render(request, "samples/samples_detail.html", context)

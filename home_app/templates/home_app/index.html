@@ -462,7 +462,7 @@
             <div class="row">
                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                     <div class="section-heading-three">
-                        <h2><span>03</span> Our Pricing Plans</h2>
+                        <h2><span>03</span> Our Courses </h2>
                         <p>
                             Proin gravida nibh vel velit auctor aliquet. Aenean
                             sollicitudin, lorem quis bibendum auctor, nisi elit consequat
@@ -471,243 +471,75 @@
                     </div>
                     <div class="plan-nav">
                         <ul role="tablist">
-                            <li
-                                    role="presentation"
-                                    class="active wow animated fadeIn"
-                                    data-wow-duration="1s"
-                            >
-                                <a href="#Mods" role="tab" data-toggle="tab"
-                                >Piercings & Mods</a
+                            {% for course in courses %}
+                                <li
+                                        role="presentation"
+                                        class="wow animated fadeIn"
+                                        data-wow-duration="1s"
                                 >
-                            </li>
-                            <li
-                                    role="presentation"
-                                    class="wow animated fadeIn"
-                                    data-wow-duration="1.5s"
-                            >
-                                <a href="#Design" role="tab" data-toggle="tab"
-                                >Tattoo Design</a
-                                >
-                            </li>
-                            <li
-                                    role="presentation"
-                                    class="wow animated fadeIn"
-                                    data-wow-duration="1.5s"
-                            >
-                                <a href="#Merch" role="tab" data-toggle="tab"
-                                >Jewelry & Merch</a
-                                >
-                            </li>
-                            <li
-                                    role="presentation"
-                                    class="wow animated fadeIn"
-                                    data-wow-duration="1.5s"
-                            >
-                                <a href="#modifications" role="tab" data-toggle="tab"
-                                >Tattoo modifications</a
-                                >
-                            </li>
-                            <li
-                                    role="presentation"
-                                    class="wow animated fadeIn"
-                                    data-wow-duration="1.5s"
-                            >
-                                <a href="#Permanent" role="tab" data-toggle="tab"
-                                >Permanent Make-Up</a
-                                >
-                            </li>
+                                    <a href="#{{ course.href }}" role="tab" data-toggle="tab"
+                                    >{{ course.name }}</a
+                                    >
+                                </li>
+                            {% endfor %}
+                            {#                            <li#}
+                            {#                                    role="presentation"#}
+                            {#                                    class="wow animated fadeIn"#}
+                            {#                                    data-wow-duration="1.5s"#}
+                            {#                            >#}
+                            {#                                <a href="#Design" role="tab" data-toggle="tab"#}
+                            {#                                >Tattoo Design</a#}
+                            {#                                >#}
+                            {#                            </li>#}
+                            {#                            <li#}
+                            {#                                    role="presentation"#}
+                            {#                                    class="wow animated fadeIn"#}
+                            {#                                    data-wow-duration="1.5s"#}
+                            {#                            >#}
+                            {#                                <a href="#Merch" role="tab" data-toggle="tab"#}
+                            {#                                >Jewelry & Merch</a#}
+                            {#                                >#}
+                            {#                            </li>#}
+                            {#                            <li#}
+                            {#                                    role="presentation"#}
+                            {#                                    class="wow animated fadeIn"#}
+                            {#                                    data-wow-duration="1.5s"#}
+                            {#                            >#}
+                            {#                                <a href="#modifications" role="tab" data-toggle="tab"#}
+                            {#                                >Tattoo modifications</a#}
+                            {#                                >#}
+                            {#                            </li>#}
+                            {#                            <li#}
+                            {#                                    role="presentation"#}
+                            {#                                    class="wow animated fadeIn"#}
+                            {#                                    data-wow-duration="1.5s"#}
+                            {#                            >#}
+                            {#                                <a href="#Permanent" role="tab" data-toggle="tab"#}
+                            {#                                >Permanent Make-Up</a#}
+                            {#                                >#}
+                            {#                            </li>#}
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                     <div class="plan-content">
                         <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="Mods">
-                                <div class="form-head">Tattoo Design</div>
-                                <div class="price-list">
-                                    <div class="con">
-                                        <h3>Tribal Tattoos .....................</h3>
-                                        <p>Proin gravida nibh vel velit auctor aliquet.</p>
-                                    </div>
-                                    <div class="price">
-                                        <span>$20</span>
-                                    </div>
+                            {% for course in courses %}
+                                <div role="tabpanel" class="tab-pane active" id="{{ course.href }}">
+                                    <div class="form-head">{{ course.name }}</div>
+                                    {% for attribute in course.courseattribute_set.all %}
+                                        <div class="price-list">
+                                            <div class="con">
+                                                <h3>{{ attribute.key }} .....................</h3>
+                                                <p>{{ attribute.value }}</p>
+                                            </div>
+                                            <div class="price">
+                                                <span>$20</span>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
                                 </div>
-                                <div class="price-list">
-                                    <div class="con">
-                                        <h3>Religious Tattoos .................</h3>
-                                        <p>Proin gravida nibh vel velit auctor aliquet.</p>
-                                    </div>
-                                    <div class="price">
-                                        <span>$55</span>
-                                    </div>
-                                </div>
-                                <div class="price-list">
-                                    <div class="con">
-                                        <h3>Stonework Style ..................</h3>
-                                        <p>Proin gravida nibh vel velit auctor aliquet.</p>
-                                    </div>
-                                    <div class="price">
-                                        <span>$59</span>
-                                    </div>
-                                </div>
-                                <div class="price-list">
-                                    <div class="con">
-                                        <h3>Cartoon Tattoos...................</h3>
-                                        <p>Proin gravida nibh vel velit auctor aliquet.</p>
-                                    </div>
-                                    <div class="price">
-                                        <span>$39</span>
-                                    </div>
-                                </div>
-                                <div class="price-list">
-                                    <div class="con">
-                                        <h3>Lettering & Ambigrams .......</h3>
-                                        <p>Proin gravida nibh vel velit auctor aliquet.</p>
-                                    </div>
-                                    <div class="price">
-                                        <span>$99</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div role="tabpanel" class="tab-pane" id="Design">
-                                <div class="form-head">Tattoo Design</div>
-                                <div class="price-list">
-                                    <div class="con">
-                                        <h3>3d Tattoo .....................</h3>
-                                        <p>Proin gravida nibh vel velit auctor aliquet.</p>
-                                    </div>
-                                    <div class="price">
-                                        <span>$20</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div role="tabpanel" class="tab-pane" id="Merch">
-                                <div class="form-head">Tattoo Design</div>
-                                <div class="price-list">
-                                    <div class="con">
-                                        <h3>Back Ink.....................</h3>
-                                        <p>Proin gravida nibh vel velit auctor aliquet.</p>
-                                    </div>
-                                    <div class="price">
-                                        <span>$20</span>
-                                    </div>
-                                </div>
-                                <div class="price-list">
-                                    <div class="con">
-                                        <h3>Hand Tattoo.....................</h3>
-                                        <p>Proin gravida nibh vel velit auctor aliquet.</p>
-                                    </div>
-                                    <div class="price">
-                                        <span>$20</span>
-                                    </div>
-                                </div>
-                                <div class="price-list">
-                                    <div class="con">
-                                        <h3>Skin Art .....................</h3>
-                                        <p>Proin gravida nibh vel velit auctor aliquet.</p>
-                                    </div>
-                                    <div class="price">
-                                        <span>$20</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div role="tabpanel" class="tab-pane" id="modifications">
-                                <div class="form-head">Tattoo Design</div>
-                                <div class="price-list">
-                                    <div class="con">
-                                        <h3>Arm Tattoo .....................</h3>
-                                        <p>Proin gravida nibh vel velit auctor aliquet.</p>
-                                    </div>
-                                    <div class="price">
-                                        <span>$20</span>
-                                    </div>
-                                </div>
-                                <div class="price-list">
-                                    <div class="con">
-                                        <h3>Foot Tattoo .....................</h3>
-                                        <p>Proin gravida nibh vel velit auctor aliquet.</p>
-                                    </div>
-                                    <div class="price">
-                                        <span>$20</span>
-                                    </div>
-                                </div>
-                                <div class="price-list">
-                                    <div class="con">
-                                        <h3>Back Tattoo .....................</h3>
-                                        <p>Proin gravida nibh vel velit auctor aliquet.</p>
-                                    </div>
-                                    <div class="price">
-                                        <span>$20</span>
-                                    </div>
-                                </div>
-                                <div class="price-list">
-                                    <div class="con">
-                                        <h3>Realism Tattoo.....................</h3>
-                                        <p>Proin gravida nibh vel velit auctor aliquet.</p>
-                                    </div>
-                                    <div class="price">
-                                        <span>$20</span>
-                                    </div>
-                                </div>
-                                <div class="price-list">
-                                    <div class="con">
-                                        <h3>LEG TATTOOS.....................</h3>
-                                        <p>Proin gravida nibh vel velit auctor aliquet.</p>
-                                    </div>
-                                    <div class="price">
-                                        <span>$20</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div role="tabpanel" class="tab-pane" id="Permanent">
-                                <div class="form-head">Tattoo Design</div>
-                                <div class="price-list">
-                                    <div class="con">
-                                        <h3>Body Tattoos .....................</h3>
-                                        <p>Proin gravida nibh vel velit auctor aliquet.</p>
-                                    </div>
-                                    <div class="price">
-                                        <span>$20</span>
-                                    </div>
-                                </div>
-                                <div class="price-list">
-                                    <div class="con">
-                                        <h3>Flower Tattos .....................</h3>
-                                        <p>Proin gravida nibh vel velit auctor aliquet.</p>
-                                    </div>
-                                    <div class="price">
-                                        <span>$20</span>
-                                    </div>
-                                </div>
-                                <div class="price-list">
-                                    <div class="con">
-                                        <h3>Godesh Tattoos .....................</h3>
-                                        <p>Proin gravida nibh vel velit auctor aliquet.</p>
-                                    </div>
-                                    <div class="price">
-                                        <span>$20</span>
-                                    </div>
-                                </div>
-                                <div class="price-list">
-                                    <div class="con">
-                                        <h3>Scar Tattoos .....................</h3>
-                                        <p>Proin gravida nibh vel velit auctor aliquet.</p>
-                                    </div>
-                                    <div class="price">
-                                        <span>$20</span>
-                                    </div>
-                                </div>
-                                <div class="price-list">
-                                    <div class="con">
-                                        <h3>Eyebrow Tattoo .....................</h3>
-                                        <p>Proin gravida nibh vel velit auctor aliquet.</p>
-                                    </div>
-                                    <div class="price">
-                                        <span>$20</span>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
