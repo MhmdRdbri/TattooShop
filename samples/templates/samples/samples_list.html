@@ -3,7 +3,7 @@
 
 <head>
     <!-- Title -->
-    <title>Sisi Tattoo | Pattern</title>
+    <title>Sisi Tattoo | Samples</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -141,18 +141,18 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 pd-0">
-                {% for pattern in patterns %}
+                {% for sample in samples %}
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                         <div class="blog-list">
-                            <figure><img src="{{ pattern.image.url }}" alt="{{ pattern.alt }}"/></figure>
+                            <figure><img src="{{ sample.image.url }}" alt="{{ sample.alt }}"/></figure>
                             <div class="content">
-                                <h3><a href="{% url 'pattern:pattern_detail' pattern.slug %}">{{ pattern.title }}</a>
-                                </h3>
+                                {#                                <h3><a href="{% url 'pattern:pattern_detail' sample.slug %}">{{ sample.title }}</a>#}
+                                {#                                </h3>#}
                                 <ul class="list-inline">
                                     <li>By Admin</li>
-                                    <li>{{ pattern.created_at }}</li>
+                                    <li>{{ sample.created_at }}</li>
                                 </ul>
-                                <p>{{ pattern.body|truncatewords:30|safe }}</p>
+                                <p>{{ sample.body|truncatewords:30|safe }}</p>
                                 <a href="">Read More >></a>
                             </div>
                         </div>
@@ -164,17 +164,17 @@
                         <div class="media">
                             <div class="pull-left">
                                 <ul class="list-inline tatto_pagi">
-                                    {% if patterns.has_previous %}
-                                        <li><a href="?page={{ patterns.previous_page_number }}"><i
+                                    {% if samples.has_previous %}
+                                        <li><a href="?page={{ samples.previous_page_number }}"><i
                                                 class="fa fa-angle-left"></i></a></li>
                                     {% endif %}
-                                    <li><a href="#" class="active">{{ patterns.number }}</a></li>
+                                    <li><a href="#" class="active">{{ samples.number }}</a></li>
                                     {#                                    <li><a href="#">2</a></li>#}
                                     {#                                    <li><a href="#">3</a></li>#}
                                     {#                                    <li>...</li>#}
                                     {#                                    <li><a href="#">24</a></li>#}
-                                    {% if patterns.has_next %}
-                                        <li><a href="?page={{ patterns.next_page_number }}"><i
+                                    {% if samples.has_next %}
+                                        <li><a href="?page={{ samples.next_page_number }}"><i
                                                 class="fa fa-angle-right"></i></a></li>
                                     {% endif %}
                                 </ul>
@@ -201,11 +201,11 @@
                             {#                            <select id="category-select" name="category">#}
                             {#                                <option value="">All Categories</option>#}
                             <input type="radio" name="category" value="" id="category-all"
-                                   {% if not category_select %}checked{% endif %}>
+                                   {% if not category_title %}checked{% endif %}>
                             <label for="category-all">All</label>
                             {% for cat in categories %}
                                 <input type="radio" name="category" value="{{ cat.title }}" id="{{ cat.title }}"
-                                       {% if category_select == "{{ cat.title }}" %}checked{% endif %}>
+                                       {% if category_title == "{{ cat.title }}" %}checked{% endif %}>
                                 <label for="{{ cat.title }}">{{ cat.title }}</label>
                             {% endfor %}
                             {#                            </select>#}
