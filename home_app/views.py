@@ -16,30 +16,12 @@ def home(request):
     z_samples = Samples.objects.filter(author='ضیائی')[:6]
     k_samples = Samples.objects.filter(author='کارآموز')[:6]
     if request.method == 'POST':
-        form = MessageForm(data=request.POST)
-
+        form = MessageForm(request.POST)
         if form.is_valid():
-            # Extract the email field value from the form
-            email = form.cleaned_data['Email']
-
-            # Create an EmailValidator instance
-            email_validator = EmailValidator()
-
-            try:
-                # Validate the email using the EmailValidator
-                email_validator(email)
-
-                form.save()
-
-            except ValidationError:
-                # If validation fails, handle the error (e.g., show an error message)
-                # You can customize this part to handle the validation error as you prefer
-                # For example, you could add an error message to the form
-                form.add_error('Email', 'Invalid email address!')
-        else:
-            # Form is not valid, you can handle this as needed
-            # For example, you could display an error message to the user
-            form.add_error('Name', 'Invalid form!')
+            form.save()  # Save the form data to the database
+            form = MessageForm()
+    else:
+        form = MessageForm()
 
     context = {
         'articles': articles,

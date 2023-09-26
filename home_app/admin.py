@@ -5,6 +5,7 @@ from .models import *
 
 class ReadOnlyMessageAdmin(admin.ModelAdmin):
     list_display = ('Name', 'Email', 'Phone', 'Message', 'created_at')
+
     readonly_fields = ('Name', 'Email', 'Phone', 'Message', 'created_at')
 
     def has_add_permission(self, request):
