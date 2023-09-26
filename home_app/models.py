@@ -12,3 +12,10 @@ class Message(models.Model):
 
     def __str__(self):
         return self.Name
+
+
+class ExtraTags(models.Model):
+    field = CKEditor5Field('Tag', config_name='extends')
+
+    def __str__(self):
+        return 'Extra Tags'
