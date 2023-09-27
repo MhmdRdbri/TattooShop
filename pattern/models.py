@@ -37,6 +37,7 @@ class Pattern(models.Model):
     site_name = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:site_name')
     widthOg = models.PositiveIntegerField(blank=True, null=True, verbose_name='Og:image:width')
     heightOg = models.PositiveIntegerField(blank=True, null=True, verbose_name='Og:image:height')
+    extratag = CKEditor5Field('تگ های جدید', config_name='extends', blank=True, null=True)
 
     def __str__(self):
         return f"{self.title}"
@@ -97,6 +98,7 @@ class Tags(models.Model):
     site_name = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:site_name')
     width = models.PositiveIntegerField(blank=True, null=True, verbose_name='Og:image:width')
     height = models.PositiveIntegerField(blank=True, null=True, verbose_name='Og:image:height')
+    extratag = CKEditor5Field('تگ های جدید', config_name='extends', blank=True, null=True)
 
     class Meta:
         verbose_name = 'Pattern Page Tag'
