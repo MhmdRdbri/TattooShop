@@ -4,7 +4,8 @@ from django import forms
 
 
 class TagsAdmin(admin.ModelAdmin):
-    list_display = ('description', 'locale', 'type', 'title', 'descriptionOg', 'site_name', 'width', 'height')
+    list_display = (
+    'description', 'locale', 'type', 'title', 'descriptionOg', 'site_name', 'width', 'height', 'extratag')
 
     def get_form(self, request, obj=None, **kwargs):
         if obj:  # If an object already exists, allow editing only
@@ -23,7 +24,7 @@ class TagsAdmin(admin.ModelAdmin):
 class TagsAdminForm(forms.ModelForm):
     class Meta:
         model = Tags
-        fields = ['description', 'locale', 'type', 'title', 'descriptionOg', 'site_name', 'width', 'height']
+        fields = ['description', 'locale', 'type', 'title', 'descriptionOg', 'site_name', 'width', 'height', 'extratag']
 
 
 admin.site.register(Samples)

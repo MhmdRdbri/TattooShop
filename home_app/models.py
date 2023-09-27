@@ -20,3 +20,11 @@ class ExtraTags(models.Model):
 
     def __str__(self):
         return 'Extra Tags'
+
+
+class Schema(models.Model):
+    schema1 = CKEditor5Field('اسکیما', config_name='extends', blank=True, null=True)
+    schema2 = CKEditor5Field('اسکیما', config_name='extends', blank=True, null=True)
+
+    def __str__(self):
+        return 'Schema Code'
