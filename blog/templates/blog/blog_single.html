@@ -12,11 +12,13 @@
       content="{{ articles.description }}"/>
 <!-- canonical -->
 <link rel="canonical" href="{{ articles.canonical }}">
-{{ articles.extratag }}
+
 <meta property="og:locale" content="{{ articles.localeOg }}">
 <meta property="og:type" content="{{ articles.typeOg }}">
 <meta property="og:title" content="{{ articles.titleOg }}">
 <meta property="og:description" content="{{ articles.descriptionOg }}">
+
+{{ articles.extratag }}
 
 <meta property="og:site_name" content="{{ articles.site_name }}">
 <meta property="article:modified_time" content="{{ articles.created }}">
@@ -63,8 +65,6 @@
     <div class="loader"></div>
 </div>
 <!--Preloader area end-->
-{{ articles.schema1 }}
-{{ articles.schema2 }}
 <!--Header area start here-->
 <header id="sticky" class="inner_blog_header">
     <div class="container-fluid">
@@ -134,6 +134,7 @@
     </div>
     <!--Responsive Menu area End-->
 </header>
+{{ articles.schema1 }}
 <section class="blog-details-area section blog-area">
     <div class="container">
         <div class="row">
@@ -226,6 +227,7 @@
         </div>
     </div>
 </section>
+{{ articles.schema2 }}
 <!--Footer area start here-->
 <footer class="bg-img jarallax af">
     <div class="footer-top">

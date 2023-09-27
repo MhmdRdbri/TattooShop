@@ -10,7 +10,7 @@
     <meta name="author" content="Mohammad Roudbari"/>
     <!-- description -->
     <meta name="description"
-          content="{{ tags.first.description }}"/>
+          content="{{ tags.first.descriptionOg }}"/>
     <!-- canonical -->
     <link rel="canonical" href="http://127.0.0.1:8000/blog/?page=1">
 
@@ -18,10 +18,12 @@
     <meta property="og:locale" content="{{ tags.first.locale }}">
     <meta property="og:type" content="{{ tags.first.type }}">
     <meta property="og:title" content="{{ tags.first.title }}">
-    <meta property="og:description" content="{{ tags.first.description }}">
+    <meta property="og:description" content="{{ tags.first.descriptionOg }}">
 
     <meta property="og:site_name" content="{{ tags.first.site_name }}">
     <meta property="article:modified_time" content="">
+
+    {{ tags.first.extratag }}
 
     <meta property="og:image:width" content="">
     <meta property="og:image:height" content="">
@@ -67,6 +69,7 @@
 </div>
 <!--Preloader area end-->
 <!--Header area start here-->
+{{ tags.first.schema1 }}
 <header id="sticky" class="inner_blog_header">
     <div class="container-fluid">
         <div class="row">
@@ -237,6 +240,7 @@
         </div>
     </div>
 </section>
+{{ tags.first.schema2 }}
 <!--Footer area start here-->
 <footer class="bg-img jarallax af">
     <div class="footer-top">

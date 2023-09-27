@@ -14,9 +14,10 @@
     <!-- canonical -->
     <link rel="canonical" href="http://127.0.0.1:8000/blog/?page=1">
 
+    {{ tags.first.extratag }}
 
     <meta property="og:locale" content="{{ tags.first.locale }}">
-    <meta property="og:type" content="{{ tags.first.type }}">
+    <meta property="og:type" content="{{ tags.fist.type }}">
     <meta property="og:title" content="{{ tags.first.title }}">
     <meta property="og:description" content="{{ tags.first.description }}">
 
@@ -67,6 +68,8 @@
 </div>
 <!--Preloader area end-->
 <!--Header area start here-->
+{{ tags.first.schema1 }}
+{{ tags.first.schema2 }}
 <header id="sticky" class="inner_blog_header">
     <div class="container-fluid">
         <div class="row">
