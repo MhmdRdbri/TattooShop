@@ -23,7 +23,7 @@ class CourseAdmin(admin.ModelAdmin):
             {
                 "classes": ["collapse"],
                 "fields": ["pagetitle", "description", "canonical", "localeOg", "typeOg", "titleOg", "descriptionOg",
-                           "site_name", "widthOg", "heightOg"],
+                           "site_name", "widthOg", "heightOg", "extratag"],
             },
         ),
     )
