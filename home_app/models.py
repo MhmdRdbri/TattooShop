@@ -15,7 +15,8 @@ class Message(models.Model):
 
 
 class ExtraTags(models.Model):
-    field = CKEditor5Field('Tag', config_name='extends')
+    field = CKEditor5Field('تگ های جدید', config_name='extends', null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return 'Extra Tags'

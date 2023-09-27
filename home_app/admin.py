@@ -19,3 +19,4 @@ class ReadOnlyMessageAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Message, ReadOnlyMessageAdmin)
+admin.site.register(ExtraTags)
