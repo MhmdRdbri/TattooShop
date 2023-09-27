@@ -14,6 +14,7 @@ def home(request):
     most_watched_patterns = Pattern.objects.order_by('-view_count')[:6]
     courses = Course.objects.all()[:6]
     extratags = ExtraTags.objects.all()
+    schemas = Schema.objects.all()
     form = MessageForm()
     z_samples = Samples.objects.filter(author='ضیائی')[:6]
     k_samples = Samples.objects.filter(author='کارآموز')[:6]
@@ -32,7 +33,8 @@ def home(request):
         'form': form,
         'z_samples': z_samples,
         'k_samples': k_samples,
-        'extratags': extratags
+        'extratags': extratags,
+        'schemas': schemas,
     }
 
     return render(request, "home_app/index.html", context)
