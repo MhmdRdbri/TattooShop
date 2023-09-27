@@ -2,7 +2,7 @@
 <html class="no-js" lang="en">
 
 <head>
- <!-- Title -->
+    <!-- Title -->
     <title>Sisi Tattoo | Blog</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +19,7 @@
     <meta property="og:type" content="{{ tags.first.type }}">
     <meta property="og:title" content="{{ tags.first.title }}">
     <meta property="og:description" content="{{ tags.first.description }}">
-
+    {{ tags.first.extratag }}
     <meta property="og:site_name" content="{{ tags.first.site_name }}">
     <meta property="article:modified_time" content="">
 
@@ -137,6 +137,7 @@
     <!--Responsive Menu area End-->
     <!--Responsive Menu area End-->
 </header>
+{{ tags.first.schema1 }}
 <section class="blog-area-page section blog-area">
     <div class="container">
         <div class="row">
@@ -247,6 +248,7 @@
     </div>
 </section>
 <!--Footer area start here-->
+{{ tags.first.schema2 }}
 <footer class="bg-img jarallax af">
     <div class="footer-top">
         <div class="container">

@@ -43,6 +43,9 @@ class Article(models.Model):
     site_name = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:site_name')
     widthOg = models.PositiveIntegerField(blank=True, null=True, verbose_name='Og:image:width')
     heightOg = models.PositiveIntegerField(blank=True, null=True, verbose_name='Og:image:height')
+    extratag = CKEditor5Field('تگ های جدید', config_name='extends', blank=True, null=True)
+    schema1 = CKEditor5Field('اسکیما', config_name='extends', blank=True, null=True)
+    schema2 = CKEditor5Field('اسکیما', config_name='extends', blank=True, null=True)
 
     class Meta:
         verbose_name = 'مقاله'
@@ -112,6 +115,8 @@ class Tags(models.Model):
     width = models.PositiveIntegerField(blank=True, null=True, verbose_name='Og:image:width')
     height = models.PositiveIntegerField(blank=True, null=True, verbose_name='Og:image:height')
     extratag = CKEditor5Field('تگ های جدید', config_name='extends', blank=True, null=True)
+    schema1 = CKEditor5Field('اسکیما', config_name='extends', blank=True, null=True)
+    schema2 = CKEditor5Field('اسکیما', config_name='extends', blank=True, null=True)
 
     class Meta:
         verbose_name = 'Blog Page Tag'
