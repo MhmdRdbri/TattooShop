@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django import forms
+
 from .models import *
 from .forms import CourseAttributeForm
 
@@ -29,15 +31,30 @@ class CourseAdmin(admin.ModelAdmin):
     )
 
 
-class TagsAdmin(admin.ModelAdmin):
+class PageTagsAdminForm(forms.ModelForm):
+    class Meta:
+        model = PageTags
+        fields = ['description', 'locale', 'type', 'title', 'descriptionOg', 'site_name', 'width', 'height', 'extratag',
+                  'schema1', 'schema2']
+
+
+class PageTagsAdmin(admin.ModelAdmin):
+
+    def get_form(self, request, obj=None, **kwargs):
+        if obj:  # If an object already exists, allow editing only
+            kwargs['form'] = PageTagsAdminForm
+        return super().get_form(request, obj, **kwargs)
+
     def has_add_permission(self, request):
+        # Check if there is already an existing product
+        return not PageTags.objects.exists()
+
+    def has_delete_permission(self, request, obj=None):
+        # Disallow product deletion
         return False
 
     def has_change_permission(self, request, obj=None):
         return True
-
-    def has_delete_permission(self, request, obj=None):
-        return False
 
 
 class CommentAdmin(admin.ModelAdmin):
@@ -53,5 +70,5 @@ class CommentAdmin(admin.ModelAdmin):
         return True
 
 
-admin.site.register(Tags, TagsAdmin)
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(PageTags, PageTagsAdmin)

@@ -68,6 +68,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'autoescape': True,
         },
     },
 ]
@@ -88,7 +89,7 @@ WSGI_APPLICATION = 'tattoshop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Tattoo',
+        'NAME': 'Tattooshop',
         'USER': 'postgres',
         'PASSWORD': 'admin',
         'HOST': 'localhost',
@@ -175,7 +176,8 @@ CKEDITOR_5_CONFIGS = {
     'default': {
         'toolbar': ['heading', '|', 'bold', 'italic', 'link',
                     'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', ],
-
+        'removePlugins': '',
+        'allowedContent': True,
     },
     'extends': {
         'blockToolbar': [

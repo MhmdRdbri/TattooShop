@@ -25,7 +25,9 @@ class FlatPageAdmin(admin.ModelAdmin):
             {
                 "classes": ["collapse"],
                 "fields": ["pagetitle", "description", "canonical", "localeOg", "typeOg", "titleOg", "descriptionOg",
-                           "site_name", "widthOg", "heightOg", "extratag", "schema1", "schema2"],
+                           "site_name", "widthOg", "heightOg", 'index_noindex', 'follow_nofollow', "extratag",
+                           "schema1",
+                           "schema2"],
             },
         ),
     ]

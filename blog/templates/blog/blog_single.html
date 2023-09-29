@@ -11,7 +11,7 @@
 <meta name="description"
       content="{{ articles.description }}"/>
 <!-- canonical -->
-<link rel="canonical" href="{{ articles.canonical }}">
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
 
 <meta property="og:locale" content="{{ articles.localeOg }}">
 <meta property="og:type" content="{{ articles.typeOg }}">
@@ -20,9 +20,13 @@
 
 {{ articles.extratag }}
 
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta name="robots"
+      content="{{ articles.index_noindex }}, {{ articles.follow_nofollow }}, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+
 <meta property="og:site_name" content="{{ articles.site_name }}">
 <meta property="article:modified_time" content="{{ articles.created }}">
-
 <meta property="og:image:width" content="{{ articles.widthOg }}">
 <meta property="og:image:height" content="{{ articles.heightOg }}">
 <meta property="og:image:type" content="image/jpeg">
@@ -134,7 +138,12 @@
     </div>
     <!--Responsive Menu area End-->
 </header>
-{{ articles.schema1 }}
+<script type="application/ld+json">
+    {{ articles.schema1|safe }}
+
+
+
+</script>
 <section class="blog-details-area section blog-area">
     <div class="container">
         <div class="row">
@@ -227,7 +236,9 @@
         </div>
     </div>
 </section>
-{{ articles.schema2 }}
+{% autoescape off %}
+    {{ articles.schema2 }}
+{% endautoescape %}
 <!--Footer area start here-->
 <footer class="bg-img jarallax af">
     <div class="footer-top">

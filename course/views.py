@@ -3,11 +3,12 @@ from .models import *
 from django.core.paginator import Paginator
 from blog.models import *
 from .forms import *
+import bleach
 
 
 def course_list(request):
     courses = Course.objects.all()
-    tags = Tags.objects.all()
+    tags = PageTags.objects.all()
     page_number = request.GET.get('page')
     paginator = Paginator(courses, 6)
     object_list = paginator.get_page(page_number)

@@ -21,7 +21,7 @@ class Pattern(models.Model):
     slug = models.SlugField(unique=True, blank=True, verbose_name='Slug')
     body = CKEditor5Field('Text', config_name='extends')
     video = models.FileField(upload_to='patterns/', blank=True, null=True)
-    image = models.ImageField(upload_to='patterns/', blank=True, null=True)
+    image = models.ImageField(upload_to='patterns/')
     alt = models.CharField(max_length=100, verbose_name='Alt', default='Alt')
     view_count = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created')

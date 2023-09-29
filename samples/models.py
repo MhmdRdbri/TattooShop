@@ -25,7 +25,7 @@ class Samples(models.Model):
     body = CKEditor5Field('توضیحات', config_name='extends')
     image = models.ImageField(upload_to='patterns/')
     alt = models.CharField(max_length=250, default='Type...')
-    video = models.FileField(upload_to='video/samples', verbose_name='ویدیو طرح')
+    video = models.FileField(upload_to='video/samples', verbose_name='ویدیو طرح', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='آپدیت')
 

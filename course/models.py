@@ -8,11 +8,12 @@ from django.utils.text import slugify
 class Course(models.Model):
     name = models.CharField(max_length=100, verbose_name="نام دوره")
     href = models.CharField(max_length=100, verbose_name='کلاس', default='Type...')
-    media = models.FileField(upload_to='images/course', blank=True, null=True)
+    cover = models.FileField(upload_to='images/course')
+    media = models.FileField(upload_to='images/course')
     alt = models.CharField(max_length=100, verbose_name='Alt', blank=True, null=True)
     body = CKEditor5Field('Text', config_name='extends', blank=True, null=True)
     slug = models.SlugField(unique=True, max_length=100)
-    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     # tags
     pagetitle = models.CharField(max_length=500, blank=True, null=True, verbose_name='Title')
@@ -72,6 +73,27 @@ class CourseAttribute(models.Model):
 
 
 class Tags(models.Model):
+    description = models.CharField(max_length=500, blank=True, null=True, verbose_name='Description')
+    locale = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:locale')
+    type = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:type')
+    title = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:title')
+    descriptionOg = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:description')
+    site_name = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:site_name')
+    width = models.PositiveIntegerField(blank=True, null=True, verbose_name='Og:image:width')
+    height = models.PositiveIntegerField(blank=True, null=True, verbose_name='Og:image:height')
+    extratag = CKEditor5Field('تگ های جدید', config_name='extends', blank=True, null=True)
+    schema1 = CKEditor5Field('اسکیما', config_name='extends', blank=True, null=True)
+    schema2 = CKEditor5Field('اسکیما', config_name='extends', blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Course Page Tag'
+        verbose_name_plural = 'Course Page Tags'
+
+    def __str__(self):
+        return "Course Page Tags"
+
+
+class PageTags(models.Model):
     description = models.CharField(max_length=500, blank=True, null=True, verbose_name='Description')
     locale = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:locale')
     type = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:type')

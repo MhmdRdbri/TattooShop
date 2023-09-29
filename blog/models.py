@@ -35,7 +35,8 @@ class Article(models.Model):
     # tags
     pagetitle = models.CharField(max_length=500, blank=True, null=True, verbose_name='Title')
     description = models.CharField(max_length=500, blank=True, null=True, verbose_name='Description')
-    canonical = models.CharField(max_length=500, blank=True, null=True, verbose_name='Canonical')
+    canonical = models.CharField(max_length=500, blank=True, null=True,
+                                 verbose_name='Canonical(default set on current page)')
     localeOg = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:locale')
     typeOg = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:type')
     titleOg = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:title')
@@ -43,8 +44,20 @@ class Article(models.Model):
     site_name = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:site_name')
     widthOg = models.PositiveIntegerField(blank=True, null=True, verbose_name='Og:image:width')
     heightOg = models.PositiveIntegerField(blank=True, null=True, verbose_name='Og:image:height')
+    Index = (
+        ('index', 'index'),
+        ('noindex', 'noindex'),
+
+    )
+    Follow = (
+        ('follow', 'follow'),
+        ('nofollow', 'nofollow'),
+
+    )
+    index_noindex = models.CharField(max_length=150, choices=Index, default='index')
+    follow_nofollow = models.CharField(max_length=150, choices=Follow, default='follow')
     extratag = CKEditor5Field('تگ های جدید', config_name='extends', blank=True, null=True)
-    schema1 = CKEditor5Field('اسکیما', config_name='extends', blank=True, null=True)
+    schema1 = models.TextField(blank=True, null=True, verbose_name="اسکیما")
     schema2 = CKEditor5Field('اسکیما', config_name='extends', blank=True, null=True)
 
     class Meta:
@@ -77,7 +90,7 @@ class BlogPostViewLog(models.Model):
 class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='likes')
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='likes')
-    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.user.username} = {self.article.title}"
