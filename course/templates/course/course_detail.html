@@ -11,14 +11,24 @@
 <meta name="description"
       content="{{ courses.description }}"/>
 <!-- canonical -->
-<link rel="canonical" href="{{ courses.canonical }}">
-
-{{ courses.extratag }}
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
 
 <meta property="og:locale" content="{{ courses.localeOg }}">
 <meta property="og:type" content="{{ courses.typeOg }}">
 <meta property="og:title" content="{{ courses.titleOg }}">
 <meta property="og:description" content="{{ courses.descriptionOg }}">
+
+{{ courses.extratag|safe }}
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ courses.twitter_title }}">
+<meta name="twitter:description"
+      content="{{ courses.twitter_description }}">
+<meta property="og:image" content="{{ courses.image.url }}">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta name="robots"
+      content="{{ courses.index_noindex }}, {{ courses.follow_nofollow }}, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
 
 <meta property="og:site_name" content="{{ courses.site_name }}">
 <meta property="article:modified_time" content="{{ courses.created_at }}">
@@ -66,7 +76,12 @@
 </div>
 <!--Preloader area end-->
 <!--Header area start here-->
-{{ courses.schema1 }}
+<script type="application/ld+json">
+    {{ courses.schema1|safe }}
+
+
+
+</script>
 <header id="sticky" class="inner_blog_header">
     <div class="container-fluid">
         <div class="row">
@@ -141,7 +156,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="content-area">
                     <figure>
-                        <img src="{{ courses.media.url }}" alt={{ courses.alt }}""/>
+                        <img src="{{ courses.image.url }}" alt="{{ courses.alt }}"/>
                     </figure>
                     <h3>{{ courses.title }}</h3>
                     <ul class="post-date list-inline">
@@ -188,7 +203,12 @@
         </div>
     </div>
 </section>
-{{ courses.schema2 }}
+<script type="application/ld+json">
+    {{ courses.schema2|safe }}
+
+
+
+</script>
 <!--Footer area start here-->
 <footer class="bg-img jarallax af">
     <div class="footer-top">

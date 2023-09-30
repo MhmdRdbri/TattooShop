@@ -12,20 +12,31 @@
     <meta name="description"
           content="{{ tags.first.description }}"/>
     <!-- canonical -->
-    <link rel="canonical" href="http://127.0.0.1:8000/blog/?page=1">
-
-    {{ tags.first.extratag }}
+    <link rel="canonical" href="{{ tags.first.canonical }}">
 
     <meta property="og:locale" content="{{ tags.first.locale }}">
     <meta property="og:type" content="{{ tags.fist.type }}">
     <meta property="og:title" content="{{ tags.first.title }}">
     <meta property="og:description" content="{{ tags.first.description }}">
 
-    <meta property="og:site_name" content="{{ tags.first.site_name }}">
-    <meta property="article:modified_time" content="">
+    {{ tags.first.extratag|safe }}
 
-    <meta property="og:image:width" content="">
-    <meta property="og:image:height" content="">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ tags.first.twitter_title }}">
+    <meta name="twitter:description"
+          content="{{ tags.first.twitter_description }}">
+    {% if  tags.first.image %}
+        <meta property="og:image" content="{{ tags.first.image.url }}">
+    {% endif %}
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta name="robots"
+          content="{{ tags.first.index_noindex }}, {{ tags.first.follow_nofollow }}, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+    <meta property="og:site_name" content="{{ tags.first.site_name }}">
+    <meta property="article:modified_time" content="{{ tags.first.created_at }}">
+
+    <meta property="og:image:width" content="{{ tags.first.width }}">
+    <meta property="og:image:height" content="{{ tags.first.height }}">
     <meta property="og:image:type" content="image/jpeg">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -68,8 +79,9 @@
 </div>
 <!--Preloader area end-->
 <!--Header area start here-->
-{{ tags.first.schema1 }}
-{{ tags.first.schema2 }}
+<script type="application/ld+json">
+    {{ tags.first.schema1|safe }}
+</script>
 <header id="sticky" class="inner_blog_header">
     <div class="container-fluid">
         <div class="row">
@@ -140,6 +152,12 @@
     <!--Responsive Menu area End-->
     <!--Responsive Menu area End-->
 </header>
+<script type="application/ld+json">
+    {{ tags.first.schema2|safe }}
+
+
+
+</script>
 <section class="blog-area-page section blog-area">
     <div class="container">
         <div class="row">
@@ -147,7 +165,7 @@
                 {% for course in courses %}
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                         <div class="blog-list">
-                            <figure><img src="{{ course.media.url }}" alt="{{ course.alt }}"/></figure>
+                            <figure><img src="{{ course.image.url }}" alt="{{ course.alt }}"/></figure>
                             <div class="content">
                                 <h3><a href="{% url 'course:course_detail' course.slug %}">{{ course.name }}</a></h3>
                                 <ul class="list-inline">

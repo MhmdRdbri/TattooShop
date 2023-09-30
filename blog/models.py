@@ -56,20 +56,16 @@ class Article(models.Model):
     )
     index_noindex = models.CharField(max_length=150, choices=Index, default='index')
     follow_nofollow = models.CharField(max_length=150, choices=Follow, default='follow')
-    extratag = CKEditor5Field('تگ های جدید', config_name='extends', blank=True, null=True)
+    twitter_title = models.CharField(max_length=500, blank=True, null=True, verbose_name='Twitter:title')
+    twitter_description = models.CharField(max_length=500, blank=True, null=True, verbose_name='Twitter:description')
+    extratag = models.TextField(blank=True, null=True, verbose_name="تگ های جدید")
     schema1 = models.TextField(blank=True, null=True, verbose_name="اسکیما")
-    schema2 = CKEditor5Field('اسکیما', config_name='extends', blank=True, null=True)
+    schema2 = models.TextField(blank=True, null=True, verbose_name="اسکیما")
 
     class Meta:
         verbose_name = 'مقاله'
         verbose_name_plural = 'مقاله ها'
         ordering = ('-created_at',)
-
-    # def save(
-    #         self, force_insert=False, force_update=False, using=None, update_fields=None
-    # ):
-    #     self.slug = slugify(self.title)
-    #     super(Article, self).save()
 
     def get_absolute_url(self):
         return reverse('blog:articles_detail', kwargs={'slug': self.slug})
@@ -119,6 +115,8 @@ class Comment(models.Model):
 
 
 class Tags(models.Model):
+    image = models.ImageField(upload_to="images/Tags", verbose_name='تصویر', blank=True, null=True)
+    canonical = models.CharField(max_length=500, blank=True, null=True, verbose_name='Canonical')
     description = models.CharField(max_length=500, blank=True, null=True, verbose_name='Description')
     locale = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:locale')
     type = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:type')
@@ -127,9 +125,24 @@ class Tags(models.Model):
     site_name = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:site_name')
     width = models.PositiveIntegerField(blank=True, null=True, verbose_name='Og:image:width')
     height = models.PositiveIntegerField(blank=True, null=True, verbose_name='Og:image:height')
-    extratag = CKEditor5Field('تگ های جدید', config_name='extends', blank=True, null=True)
-    schema1 = CKEditor5Field('اسکیما', config_name='extends', blank=True, null=True)
-    schema2 = CKEditor5Field('اسکیما', config_name='extends', blank=True, null=True)
+    Index = (
+        ('index', 'index'),
+        ('noindex', 'noindex'),
+
+    )
+    Follow = (
+        ('follow', 'follow'),
+        ('nofollow', 'nofollow'),
+
+    )
+    index_noindex = models.CharField(max_length=150, choices=Index, default='index')
+    follow_nofollow = models.CharField(max_length=150, choices=Follow, default='follow')
+    twitter_title = models.CharField(max_length=500, blank=True, null=True, verbose_name='Twitter:title')
+    twitter_description = models.CharField(max_length=500, blank=True, null=True, verbose_name='Twitter:description')
+    extratag = models.TextField(blank=True, null=True, verbose_name="تگ های جدید")
+    schema1 = models.TextField(blank=True, null=True, verbose_name="اسکیما")
+    schema2 = models.TextField(blank=True, null=True, verbose_name="اسکیما")
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     class Meta:
         verbose_name = 'Blog Page Tag'

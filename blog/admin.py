@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib import admin
 from .models import *
 
@@ -24,8 +25,9 @@ class FlatPageAdmin(admin.ModelAdmin):
             "Seo",
             {
                 "classes": ["collapse"],
-                "fields": ["pagetitle", "description", "canonical", "localeOg", "typeOg", "titleOg", "descriptionOg",
-                           "site_name", "widthOg", "heightOg", 'index_noindex', 'follow_nofollow', "extratag",
+                "fields": ["pagetitle", "description", "localeOg", "typeOg", "titleOg", "descriptionOg",
+                           "site_name", "widthOg", "heightOg", 'index_noindex', 'follow_nofollow', 'twitter_title',
+                           'twitter_description', "extratag",
                            "schema1",
                            "schema2"],
             },
@@ -47,14 +49,31 @@ class CommentAdmin(admin.ModelAdmin):
 
 
 class TagsAdmin(admin.ModelAdmin):
-    def has_add_permission(self, request):
-        return False
+    list_display = (
+        'title', 'descriptionOg', 'index_noindex',
+        'follow_nofollow')
 
-    def has_change_permission(self, request, obj=None):
-        return True
+    def get_form(self, request, obj=None, **kwargs):
+        if obj:  # If an object already exists, allow editing only
+            kwargs['form'] = TagsAdminForm
+        return super().get_form(request, obj, **kwargs)
+
+    def has_add_permission(self, request):
+        # Check if there is already an existing product
+        return not Tags.objects.exists()
 
     def has_delete_permission(self, request, obj=None):
+        # Disallow product deletion
         return False
+
+
+class TagsAdminForm(forms.ModelForm):
+    class Meta:
+        model = Tags
+        fields = ['image', 'canonical', 'description', 'locale', 'type', 'title', 'descriptionOg', 'site_name', 'width',
+                  'height',
+                  'index_noindex', 'follow_nofollow', 'twitter_title', 'twitter_description', 'extratag', 'schema1',
+                  'schema2']
 
 
 admin.site.register(Article, FlatPageAdmin)

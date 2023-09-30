@@ -5,7 +5,7 @@ from django import forms
 
 class TagsAdmin(admin.ModelAdmin):
     list_display = (
-    'description', 'locale', 'type', 'title', 'descriptionOg', 'site_name', 'width', 'height', 'extratag')
+        'description', 'title')
 
     def get_form(self, request, obj=None, **kwargs):
         if obj:  # If an object already exists, allow editing only
@@ -21,10 +21,12 @@ class TagsAdmin(admin.ModelAdmin):
         return False
 
 
-class TagsAdminForm(forms.ModelForm):
-    class Meta:
-        model = Tags
-        fields = ['description', 'locale', 'type', 'title', 'descriptionOg', 'site_name', 'width', 'height', 'extratag']
+# class TagsAdminForm(forms.ModelForm):
+#     class Meta:
+#         model = Tags
+#         fields = ['image', 'description', 'locale', 'type', 'title', 'descriptionOg', 'site_name', 'width', 'height',
+#                   'index_noindex', 'follow_nofollow', 'twitter_title', 'twitter_description', 'extratag', 'schema1',
+#                   'schema2']
 
 
 admin.site.register(Samples)

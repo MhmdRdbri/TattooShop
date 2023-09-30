@@ -3,7 +3,7 @@
 
 <head>
     <!-- Title -->
-    <title>Sisi Tattoo | Blog</title>
+    <title>{{ tags.first.title }}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -12,19 +12,32 @@
     <meta name="description"
           content="{{ tags.first.description }}"/>
     <!-- canonical -->
-    <link rel="canonical" href="http://127.0.0.1:8000/blog/?page=1">
-
+    <link rel="canonical" href="{{ tags.first.canonical }}">
 
     <meta property="og:locale" content="{{ tags.first.locale }}">
     <meta property="og:type" content="{{ tags.first.type }}">
     <meta property="og:title" content="{{ tags.first.title }}">
-    <meta property="og:description" content="{{ tags.first.description }}">
-    {{ tags.first.extratag }}
-    <meta property="og:site_name" content="{{ tags.first.site_name }}">
-    <meta property="article:modified_time" content="">
+    <meta property="og:description" content="{{ tags.first.descriptionOg }}">
 
-    <meta property="og:image:width" content="">
-    <meta property="og:image:height" content="">
+    {{ tags.first.extratag|safe }}
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ tags.first.twitter_title }}">
+    <meta name="twitter:description"
+          content="{{ tags.first.twitter_description }}">
+    {% if  tags.first.image %}
+        <meta property="og:image" content="{{ tags.first.image.url }}">
+    {% endif %}
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta name="robots"
+          content="{{ tags.first.index_noindex }}, {{ tags.first.follow_nofollow }}, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+
+    <meta property="og:site_name" content="{{ tags.first.site_name }}">
+    <meta property="article:modified_time" content="{{ tags.first.created_at }}">
+
+    <meta property="og:image:width" content="{{ tags.first.width }}">
+    <meta property="og:image:height" content="{{ tags.first.height }}">
     <meta property="og:image:type" content="image/jpeg">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -137,7 +150,9 @@
     <!--Responsive Menu area End-->
     <!--Responsive Menu area End-->
 </header>
-{{ tags.first.schema1 }}
+<script type="application/ld+json">
+    {{ tags.first.schema1|safe }}
+</script>
 <section class="blog-area-page section blog-area">
     <div class="container">
         <div class="row">
@@ -248,7 +263,14 @@
     </div>
 </section>
 <!--Footer area start here-->
-{{ tags.first.schema2 }}
+<script type="application/ld+json">
+    {{ tags.first.schema1|safe }}
+
+
+
+
+
+</script>
 <footer class="bg-img jarallax af">
     <div class="footer-top">
         <div class="container">

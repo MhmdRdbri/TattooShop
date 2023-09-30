@@ -20,8 +20,10 @@ class Pattern(models.Model):
     category = models.ManyToManyField(PatternCategory, related_name="articles", verbose_name='Category')
     slug = models.SlugField(unique=True, blank=True, verbose_name='Slug')
     body = CKEditor5Field('Text', config_name='extends')
-    video = models.FileField(upload_to='patterns/', blank=True, null=True)
-    image = models.ImageField(upload_to='patterns/')
+    image = models.ImageField(upload_to='images/patterns/')
+    cover = models.FileField(upload_to='images/cover/patterns/', default=image)
+    duration = models.CharField(max_length=200, default='Type...')
+    video = models.FileField(upload_to='videos/patterns/', blank=True, null=True)
     alt = models.CharField(max_length=100, verbose_name='Alt', default='Alt')
     view_count = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created')
@@ -46,16 +48,6 @@ class Pattern(models.Model):
 
     def get_absolute_url(self):
         return reverse('pattern:pattern_detail', kwargs={'slug': self.slug})
-
-
-class PatternImage(models.Model):
-    pattern = models.ForeignKey(Pattern, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(upload_to='pattern_images/')
-    alt = models.CharField(max_length=100, verbose_name='Alt', default='Alt')
-    body = models.CharField(max_length=255, blank=True)
-
-    def __str__(self):
-        return f"Image for {self.pattern.name}"
 
 
 class PatternPostViewLog(models.Model):
@@ -92,6 +84,8 @@ class Comment(models.Model):
 
 
 class Tags(models.Model):
+    image = models.ImageField(upload_to="images/Tags", verbose_name='تصویر', blank=True, null=True)
+    canonical = models.CharField(max_length=500, blank=True, null=True, verbose_name='Canonical')
     description = models.CharField(max_length=500, blank=True, null=True, verbose_name='Description')
     locale = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:locale')
     type = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:type')
@@ -100,13 +94,30 @@ class Tags(models.Model):
     site_name = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:site_name')
     width = models.PositiveIntegerField(blank=True, null=True, verbose_name='Og:image:width')
     height = models.PositiveIntegerField(blank=True, null=True, verbose_name='Og:image:height')
-    extratag = CKEditor5Field('تگ های جدید', config_name='extends', blank=True, null=True)
-    schema1 = CKEditor5Field('اسکیما', config_name='extends', blank=True, null=True)
-    schema2 = CKEditor5Field('اسکیما', config_name='extends', blank=True, null=True)
+    Index = (
+        ('index', 'index'),
+        ('noindex', 'noindex'),
 
-    class Meta:
-        verbose_name = 'Pattern Page Tag'
-        verbose_name_plural = 'Pattern Page Tags'
+    )
+    Follow = (
+        ('follow', 'follow'),
+        ('nofollow', 'nofollow'),
 
-    def __str__(self):
-        return "Pattern Page Tags"
+    )
+    index_noindex = models.CharField(max_length=150, choices=Index, default='index', blank=True, null=True)
+    follow_nofollow = models.CharField(max_length=150, choices=Follow, default='follow', blank=True, null=True)
+    twitter_title = models.CharField(max_length=500, blank=True, null=True, verbose_name='Twitter:title')
+    twitter_description = models.CharField(max_length=500, blank=True, null=True, verbose_name='Twitter:description')
+    extratag = models.TextField(blank=True, null=True, verbose_name="تگ های جدید")
+    schema1 = models.TextField(blank=True, null=True, verbose_name="اسکیما")
+    schema2 = models.TextField(blank=True, null=True, verbose_name="اسکیما")
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+
+
+class Meta:
+    verbose_name = 'Pattern Page Tag'
+    verbose_name_plural = 'Pattern Page Tags'
+
+
+def __str__(self):
+    return "Pattern Page Tags"

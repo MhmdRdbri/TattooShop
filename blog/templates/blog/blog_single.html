@@ -1,5 +1,6 @@
 {% load static %}
 <!doctype html>
+
 <html class="no-js" lang="en">
 <!-- Title -->
 <title>{{ articles.pagetitle }}</title>
@@ -18,15 +19,20 @@
 <meta property="og:title" content="{{ articles.titleOg }}">
 <meta property="og:description" content="{{ articles.descriptionOg }}">
 
-{{ articles.extratag }}
+{{ articles.extratag|safe }}
 
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ articles.twitter_title }}">
+<meta name="twitter:description"
+      content="{{ articles.twitter_description }}">
+<meta property="og:image" content="{{ articles.image.url }}">
 <meta property="og:url" content="{{ request.build_absolute_uri }}">
 <meta name="robots"
       content="{{ articles.index_noindex }}, {{ articles.follow_nofollow }}, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 
 
 <meta property="og:site_name" content="{{ articles.site_name }}">
-<meta property="article:modified_time" content="{{ articles.created }}">
+<meta property="article:modified_time" content="{{ articles.created_at }}">
 <meta property="og:image:width" content="{{ articles.widthOg }}">
 <meta property="og:image:height" content="{{ articles.heightOg }}">
 <meta property="og:image:type" content="image/jpeg">
@@ -140,9 +146,6 @@
 </header>
 <script type="application/ld+json">
     {{ articles.schema1|safe }}
-
-
-
 </script>
 <section class="blog-details-area section blog-area">
     <div class="container">
@@ -150,7 +153,7 @@
             <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                 <div class="content-area">
                     <figure>
-                        <img src="{{ articles.image.url }}" alt={{ articles.alt }}""/>
+                        <img src="{{ articles.image.url }}" alt="{{ articles.alt }}"/>
                     </figure>
                     <h3>{{ articles.title }}</h3>
                     <ul class="post-date list-inline">
@@ -236,9 +239,9 @@
         </div>
     </div>
 </section>
-{% autoescape off %}
-    {{ articles.schema2 }}
-{% endautoescape %}
+<script type="application/ld+json">
+    {{ articles.schema2|safe }}
+</script>
 <!--Footer area start here-->
 <footer class="bg-img jarallax af">
     <div class="footer-top">

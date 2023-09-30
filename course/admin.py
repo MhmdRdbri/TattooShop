@@ -18,14 +18,17 @@ class CourseAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('name', 'media', 'alt', 'body', 'slug')
+            'fields': ('name', 'image', 'cover', 'media', 'alt', 'duration', 'body', 'slug', 'href')
         }),
         (
             "Seo",
             {
                 "classes": ["collapse"],
-                "fields": ["pagetitle", "description", "canonical", "localeOg", "typeOg", "titleOg", "descriptionOg",
-                           "site_name", "widthOg", "heightOg", "extratag", "schema1", "schema2"],
+                "fields": ["pagetitle", "description", "localeOg", "typeOg", "titleOg", "descriptionOg",
+                           "site_name", "widthOg", "heightOg", 'index_noindex', 'follow_nofollow', 'twitter_title',
+                           'twitter_description', "extratag",
+                           "schema1",
+                           "schema2"],
             },
         ),
     )
@@ -34,8 +37,10 @@ class CourseAdmin(admin.ModelAdmin):
 class PageTagsAdminForm(forms.ModelForm):
     class Meta:
         model = PageTags
-        fields = ['description', 'locale', 'type', 'title', 'descriptionOg', 'site_name', 'width', 'height', 'extratag',
-                  'schema1', 'schema2']
+        fields = ['image', 'canonical', 'description', 'locale', 'type', 'title', 'descriptionOg', 'site_name', 'width',
+                  'height',
+                  'index_noindex', 'follow_nofollow', 'twitter_title', 'twitter_description', 'extratag', 'schema1',
+                  'schema2']
 
 
 class PageTagsAdmin(admin.ModelAdmin):
