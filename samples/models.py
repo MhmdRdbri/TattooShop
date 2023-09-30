@@ -23,9 +23,11 @@ class Samples(models.Model):
     category = models.ManyToManyField(SamplesCategory, related_name="samples", verbose_name='دسته بندی')
     author = models.CharField(max_length=100, choices=Author, default='ضیائی', verbose_name="توسط")
     body = CKEditor5Field('توضیحات', config_name='extends')
-    image = models.ImageField(upload_to='patterns/')
+    image = models.ImageField(upload_to='images/samples/')
+    cover = models.FileField(upload_to='images/cover/samples/', default=image)
     alt = models.CharField(max_length=250, default='Type...')
     video = models.FileField(upload_to='video/samples', verbose_name='ویدیو طرح', blank=True, null=True)
+    duration = models.CharField(max_length=200, default='Type...')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='آپدیت')
 
@@ -40,15 +42,33 @@ class Samples(models.Model):
     site_name = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:site_name')
     widthOg = models.PositiveIntegerField(blank=True, null=True, verbose_name='Og:image:width')
     heightOg = models.PositiveIntegerField(blank=True, null=True, verbose_name='Og:image:height')
-    extratag = CKEditor5Field('تگ های جدید', config_name='extends', blank=True, null=True)
+    Index = (
+        ('index', 'index'),
+        ('noindex', 'noindex'),
 
-    def __str__(self):
-        return self.name
+    )
+    Follow = (
+        ('follow', 'follow'),
+        ('nofollow', 'nofollow'),
 
-    class Meta:
-        verbose_name = 'طرح'
-        verbose_name_plural = 'طرح ها'
-        ordering = ('-created_at',)
+    )
+    index_noindex = models.CharField(max_length=150, choices=Index, default='index')
+    follow_nofollow = models.CharField(max_length=150, choices=Follow, default='follow')
+    twitter_title = models.CharField(max_length=500, blank=True, null=True, verbose_name='Twitter:title')
+    twitter_description = models.CharField(max_length=500, blank=True, null=True, verbose_name='Twitter:description')
+    extratag = models.TextField(blank=True, null=True, verbose_name="تگ های جدید")
+    schema1 = models.TextField(blank=True, null=True, verbose_name="اسکیما")
+    schema2 = models.TextField(blank=True, null=True, verbose_name="اسکیما")
+
+
+def __str__(self):
+    return self.name
+
+
+class Meta:
+    verbose_name = 'طرح'
+    verbose_name_plural = 'طرح ها'
+    ordering = ('-created_at',)
 
 
 class Comment(models.Model):
@@ -71,6 +91,8 @@ class Comment(models.Model):
 
 
 class Tags(models.Model):
+    image = models.ImageField(upload_to="images/Tags", verbose_name='تصویر', blank=True, null=True)
+    canonical = models.CharField(max_length=500, blank=True, null=True, verbose_name='Canonical')
     description = models.CharField(max_length=500, blank=True, null=True, verbose_name='Description')
     locale = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:locale')
     type = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:type')
@@ -79,11 +101,30 @@ class Tags(models.Model):
     site_name = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:site_name')
     width = models.PositiveIntegerField(blank=True, null=True, verbose_name='Og:image:width')
     height = models.PositiveIntegerField(blank=True, null=True, verbose_name='Og:image:height')
-    extratag = CKEditor5Field('تگ های جدید', config_name='extends', blank=True, null=True)
+    Index = (
+        ('index', 'index'),
+        ('noindex', 'noindex'),
 
-    class Meta:
-        verbose_name = 'Sample Page Tag'
-        verbose_name_plural = 'Sample Page Tags'
+    )
+    Follow = (
+        ('follow', 'follow'),
+        ('nofollow', 'nofollow'),
 
-    def __str__(self):
-        return "Sample Page Tags"
+    )
+    index_noindex = models.CharField(max_length=150, choices=Index, default='index', blank=True, null=True)
+    follow_nofollow = models.CharField(max_length=150, choices=Follow, default='follow', blank=True, null=True)
+    twitter_title = models.CharField(max_length=500, blank=True, null=True, verbose_name='Twitter:title')
+    twitter_description = models.CharField(max_length=500, blank=True, null=True, verbose_name='Twitter:description')
+    extratag = models.TextField(blank=True, null=True, verbose_name="تگ های جدید")
+    schema1 = models.TextField(blank=True, null=True, verbose_name="اسکیما")
+    schema2 = models.TextField(blank=True, null=True, verbose_name="اسکیما")
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+
+
+class Meta:
+    verbose_name = 'Sample Page Tag'
+    verbose_name_plural = 'Sample Page Tags'
+
+
+def __str__(self):
+    return "Sample Page Tags"

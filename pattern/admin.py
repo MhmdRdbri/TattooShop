@@ -27,7 +27,7 @@ class CommentAdmin(admin.ModelAdmin):
 class TagsAdminForm(forms.ModelForm):
     class Meta:
         model = Tags
-        fields = ['image', 'canonical', 'description', 'locale', 'type', 'title', 'descriptionOg', 'site_name', 'width',
+        fields = ['image', 'description', 'locale', 'type', 'title', 'descriptionOg', 'site_name', 'width',
                   'height',
                   'index_noindex', 'follow_nofollow', 'twitter_title', 'twitter_description', 'extratag', 'schema1',
                   'schema2']

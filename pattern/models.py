@@ -22,8 +22,8 @@ class Pattern(models.Model):
     body = CKEditor5Field('Text', config_name='extends')
     image = models.ImageField(upload_to='images/patterns/')
     cover = models.FileField(upload_to='images/cover/patterns/', default=image)
-    duration = models.CharField(max_length=200, default='Type...')
     video = models.FileField(upload_to='videos/patterns/', blank=True, null=True)
+    duration = models.CharField(max_length=200, default='Type...')
     alt = models.CharField(max_length=100, verbose_name='Alt', default='Alt')
     view_count = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created')
@@ -39,15 +39,31 @@ class Pattern(models.Model):
     site_name = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:site_name')
     widthOg = models.PositiveIntegerField(blank=True, null=True, verbose_name='Og:image:width')
     heightOg = models.PositiveIntegerField(blank=True, null=True, verbose_name='Og:image:height')
-    extratag = CKEditor5Field('تگ های جدید', config_name='extends', blank=True, null=True)
-    schema1 = CKEditor5Field('اسکیما', config_name='extends', blank=True, null=True)
-    schema2 = CKEditor5Field('اسکیما', config_name='extends', blank=True, null=True)
+    Index = (
+        ('index', 'index'),
+        ('noindex', 'noindex'),
 
-    def __str__(self):
-        return f"{self.title}"
+    )
+    Follow = (
+        ('follow', 'follow'),
+        ('nofollow', 'nofollow'),
 
-    def get_absolute_url(self):
-        return reverse('pattern:pattern_detail', kwargs={'slug': self.slug})
+    )
+    index_noindex = models.CharField(max_length=150, choices=Index, default='index')
+    follow_nofollow = models.CharField(max_length=150, choices=Follow, default='follow')
+    twitter_title = models.CharField(max_length=500, blank=True, null=True, verbose_name='Twitter:title')
+    twitter_description = models.CharField(max_length=500, blank=True, null=True, verbose_name='Twitter:description')
+    extratag = models.TextField(blank=True, null=True, verbose_name="تگ های جدید")
+    schema1 = models.TextField(blank=True, null=True, verbose_name="اسکیما")
+    schema2 = models.TextField(blank=True, null=True, verbose_name="اسکیما")
+
+
+def __str__(self):
+    return f"{self.title}"
+
+
+def get_absolute_url(self):
+    return reverse('pattern:pattern_detail', kwargs={'slug': self.slug})
 
 
 class PatternPostViewLog(models.Model):
@@ -68,11 +84,6 @@ class Comment(models.Model):
     message = models.TextField(verbose_name='Message')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated')
-
-    # def save(self, *args, **kwargs):
-    #     if not self.created_at:
-    #         self.created = timezone.now()
-    #     super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Comment'

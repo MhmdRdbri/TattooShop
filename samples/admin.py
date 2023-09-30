@@ -3,6 +3,15 @@ from .models import *
 from django import forms
 
 
+class TagsAdminForm(forms.ModelForm):
+    class Meta:
+        model = Tags
+        fields = ['image', 'description', 'locale', 'type', 'title', 'descriptionOg', 'site_name', 'width',
+                  'height',
+                  'index_noindex', 'follow_nofollow', 'twitter_title', 'twitter_description', 'extratag', 'schema1',
+                  'schema2']
+
+
 class TagsAdmin(admin.ModelAdmin):
     list_display = (
         'description', 'title')
@@ -19,14 +28,6 @@ class TagsAdmin(admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
         # Disallow product deletion
         return False
-
-
-# class TagsAdminForm(forms.ModelForm):
-#     class Meta:
-#         model = Tags
-#         fields = ['image', 'description', 'locale', 'type', 'title', 'descriptionOg', 'site_name', 'width', 'height',
-#                   'index_noindex', 'follow_nofollow', 'twitter_title', 'twitter_description', 'extratag', 'schema1',
-#                   'schema2']
 
 
 admin.site.register(Samples)
