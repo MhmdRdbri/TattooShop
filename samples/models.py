@@ -4,11 +4,16 @@ from django_ckeditor_5.fields import CKEditor5Field
 
 
 class SamplesCategory(models.Model):
-    title = models.CharField(max_length=250)
+    title = models.CharField(max_length=250, verbose_name='نام دسته بندی')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = 'دسته بندی'
+        verbose_name_plural = 'دسته بندی ها'
+        ordering = ('-created_at',)
 
 
 class Samples(models.Model):
@@ -19,15 +24,15 @@ class Samples(models.Model):
 
     name = models.CharField(max_length=250, verbose_name='نام طرح')
     title = models.CharField(max_length=250, verbose_name='عتوان طرح')
-    slug = models.SlugField(unique=True, verbose_name='اسلاگ')
+    slug = models.SlugField(unique=True, verbose_name='نامک')
     category = models.ManyToManyField(SamplesCategory, related_name="samples", verbose_name='دسته بندی')
     author = models.CharField(max_length=100, choices=Author, default='ضیائی', verbose_name="توسط")
-    body = CKEditor5Field('توضیحات', config_name='extends')
-    image = models.ImageField(upload_to='images/samples/')
-    cover = models.FileField(upload_to='images/cover/samples/', default=image)
-    alt = models.CharField(max_length=250, default='Type...')
+    body = CKEditor5Field('متن', config_name='extends')
+    image = models.ImageField(upload_to='images/samples/', verbose_name='تصویر')
+    cover = models.FileField(upload_to='images/cover/samples/', default=image, verbose_name='کاور ویدئو')
+    alt = models.CharField(max_length=250, default='Type...', verbose_name='جایگزین تصویر')
     video = models.FileField(upload_to='video/samples', verbose_name='ویدیو طرح', blank=True, null=True)
-    duration = models.CharField(max_length=200, default='Type...')
+    duration = models.CharField(max_length=200, default='Type...', blank=True, null=True, verbose_name='مدت زمان ویدئو')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='آپدیت')
 
@@ -59,24 +64,23 @@ class Samples(models.Model):
     schema1 = models.TextField(blank=True, null=True, verbose_name="اسکیما")
     schema2 = models.TextField(blank=True, null=True, verbose_name="اسکیما")
 
+    def __str__(self):
+        return self.name
 
-def __str__(self):
-    return self.name
-
-
-class Meta:
-    verbose_name = 'طرح'
-    verbose_name_plural = 'طرح ها'
-    ordering = ('-created_at',)
+    class Meta:
+        verbose_name = 'نمونه کار'
+        verbose_name_plural = 'نمونه کار ها'
+        ordering = ('-created_at',)
 
 
 class Comment(models.Model):
-    sample = models.ForeignKey(Samples, on_delete=models.CASCADE, related_name='comments')
-    parent_comment = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
-    name = models.CharField(max_length=100, verbose_name='Name')
-    phone = models.CharField(max_length=15, verbose_name='Phone')
-    email = models.EmailField(max_length=255, verbose_name='Email')
-    message = models.TextField(verbose_name='Message')
+    sample = models.ForeignKey(Samples, on_delete=models.CASCADE, related_name='comments', verbose_name='طرج')
+    parent_comment = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies',
+                                       verbose_name='والد')
+    name = models.CharField(max_length=100, verbose_name='نام')
+    phone = models.CharField(max_length=15, verbose_name='شماره همراه')
+    email = models.EmailField(max_length=255, verbose_name='ایمیل')
+    message = models.TextField(verbose_name='پیام')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated')
 
@@ -86,7 +90,12 @@ class Comment(models.Model):
         ordering = ('-created_at',)
 
     def __str__(self):
-        return f"Comment by {self.name} on {self.sample.title}"
+        return f"{self.name} بر روی {self.sample.title}"
+
+    class Meta:
+        verbose_name = 'کامنت'
+        verbose_name_plural = 'کامنت ها'
+        ordering = ('-created_at',)
 
 
 class Tags(models.Model):
@@ -119,11 +128,9 @@ class Tags(models.Model):
     schema2 = models.TextField(blank=True, null=True, verbose_name="اسکیما")
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
+    class Meta:
+        verbose_name = 'تگ صفحه لیست نمونه کار'
+        verbose_name_plural = 'تگ های صفحه لیست نمونه کار ها'
 
-class Meta:
-    verbose_name = 'Sample Page Tag'
-    verbose_name_plural = 'Sample Page Tags'
-
-
-def __str__(self):
-    return "Sample Page Tags"
+    def __str__(self):
+        return "تگ صفحه لیست نمونه کار"

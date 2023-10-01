@@ -119,8 +119,8 @@ class PageTags(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     class Meta:
-        verbose_name = 'Course Page Tag'
-        verbose_name_plural = 'Course Page Tags'
+        verbose_name = 'تگ صفحه لیست دوره'
+        verbose_name_plural = 'تگ های صفحه لیست دوره'
 
     def __str__(self):
-        return "Course Page Tags"
+        return "تگ صفحه لیست دوره"

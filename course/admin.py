@@ -17,11 +17,11 @@ class CourseAdmin(admin.ModelAdmin):
     inlines = [CourseAttributeInline]
 
     fieldsets = (
-        (None, {
+        ("دوره", {
             'fields': ('name', 'image', 'cover', 'media', 'alt', 'duration', 'body', 'slug', 'href')
         }),
         (
-            "Seo",
+            "سئو",
             {
                 "classes": ["collapse"],
                 "fields": ["pagetitle", "description", "localeOg", "typeOg", "titleOg", "descriptionOg",

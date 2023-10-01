@@ -7,27 +7,32 @@ from django_ckeditor_5.fields import CKEditor5Field
 
 
 class PatternCategory(models.Model):
-    title = models.CharField(max_length=100, verbose_name='Title')
+    title = models.CharField(max_length=100, verbose_name='نام دسته بندی')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Created')
 
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name = 'دسته بندی'
+        verbose_name_plural = 'دسته بندی ها'
+        ordering = ('-created',)
+
 
 class Pattern(models.Model):
-    name = models.CharField(max_length=255)
-    title = models.CharField(max_length=255)
-    category = models.ManyToManyField(PatternCategory, related_name="articles", verbose_name='Category')
-    slug = models.SlugField(unique=True, blank=True, verbose_name='Slug')
-    body = CKEditor5Field('Text', config_name='extends')
-    image = models.ImageField(upload_to='images/patterns/')
-    cover = models.FileField(upload_to='images/cover/patterns/', default=image)
-    video = models.FileField(upload_to='videos/patterns/', blank=True, null=True)
-    duration = models.CharField(max_length=200, default='Type...')
-    alt = models.CharField(max_length=100, verbose_name='Alt', default='Alt')
-    view_count = models.PositiveIntegerField(default=0)
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created')
-    updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated')
+    name = models.CharField(max_length=255, verbose_name='نام')
+    title = models.CharField(max_length=255, verbose_name='عنوان')
+    category = models.ManyToManyField(PatternCategory, related_name="articles", verbose_name='دسته بندی')
+    slug = models.SlugField(unique=True, blank=True, verbose_name='نامک')
+    body = CKEditor5Field('متن', config_name='extends')
+    image = models.ImageField(upload_to='images/patterns/', verbose_name='تصویر')
+    cover = models.FileField(upload_to='images/cover/patterns/', default=image, verbose_name='کاور وبدئو')
+    video = models.FileField(upload_to='videos/patterns/', blank=True, null=True, verbose_name='وبدئو')
+    duration = models.CharField(max_length=200, default='Type...', blank=True, null=True, verbose_name='مدت زمان ویدئو')
+    alt = models.CharField(max_length=100, verbose_name='Alt', default='جایگزین تصویر')
+    view_count = models.PositiveIntegerField(default=0, verbose_name='بازدید')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='زمان ایجاد')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='آخرین بروزرسانی')
     # tags
     pagetitle = models.CharField(max_length=500, blank=True, null=True, verbose_name='Title')
     description = models.CharField(max_length=500, blank=True, null=True, verbose_name='Description')
@@ -56,37 +61,45 @@ class Pattern(models.Model):
     schema1 = models.TextField(blank=True, null=True, verbose_name="اسکیما")
     schema2 = models.TextField(blank=True, null=True, verbose_name="اسکیما")
 
+    class Meta:
+        verbose_name = 'طرح پیشنهادی'
+        verbose_name_plural = 'طرح های پیشنهادی'
+        ordering = ('-created_at',)
 
-def __str__(self):
-    return f"{self.title}"
+    def __str__(self):
+        return f"{self.title}"
 
-
-def get_absolute_url(self):
-    return reverse('pattern:pattern_detail', kwargs={'slug': self.slug})
+    def get_absolute_url(self):
+        return reverse('pattern:pattern_detail', kwargs={'slug': self.slug})
 
 
 class PatternPostViewLog(models.Model):
-    pattern_post = models.ForeignKey(Pattern, on_delete=models.CASCADE)
-    ip_address = models.GenericIPAddressField()
+    pattern_post = models.ForeignKey(Pattern, on_delete=models.CASCADE, verbose_name='طرح')
+    ip_address = models.GenericIPAddressField(verbose_name='آی پی کاربر')
     updated = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.pattern_post.title} - {self.ip_address}"
 
+    class Meta:
+        verbose_name = 'بازدید'
+        verbose_name_plural = 'بازدید ها'
+
 
 class Comment(models.Model):
-    pattern = models.ForeignKey(Pattern, on_delete=models.CASCADE, related_name='comments')
-    parent_comment = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
-    name = models.CharField(max_length=100, verbose_name='Name')
-    phone = models.CharField(max_length=15, verbose_name='Phone')
-    email = models.EmailField(max_length=255, verbose_name='Email')
-    message = models.TextField(verbose_name='Message')
+    pattern = models.ForeignKey(Pattern, on_delete=models.CASCADE, related_name='comments', verbose_name='طرج')
+    parent_comment = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies',
+                                       verbose_name='والد')
+    name = models.CharField(max_length=100, verbose_name='نام')
+    phone = models.CharField(max_length=15, verbose_name='شماره همراه')
+    email = models.EmailField(max_length=255, verbose_name='ایمیل')
+    message = models.TextField(verbose_name='پیام')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated')
 
     class Meta:
-        verbose_name = 'Comment'
-        verbose_name_plural = 'Comments'
+        verbose_name = 'کامنت'
+        verbose_name_plural = 'کامنت ها'
         ordering = ('-created_at',)
 
     def __str__(self):
@@ -123,11 +136,9 @@ class Tags(models.Model):
     schema2 = models.TextField(blank=True, null=True, verbose_name="اسکیما")
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
+    class Meta:
+        verbose_name = 'تگ صفحه لیست طرح پیشنهادی'
+        verbose_name_plural = 'تگ های صفحه لیست طرح پیشنهادی'
 
-class Meta:
-    verbose_name = 'Pattern Page Tag'
-    verbose_name_plural = 'Pattern Page Tags'
-
-
-def __str__(self):
-    return "Pattern Page Tags"
+    def __str__(self):
+        return "تگ صفحه لیست طرح پیشنهادی"
