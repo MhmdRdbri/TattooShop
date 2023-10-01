@@ -10,19 +10,19 @@ class FlatPageAdmin(admin.ModelAdmin):
     list_display = ('title', 'image_tag', 'author', 'view_count')
     fieldsets = [
         (
-            "Article",
+            "مقاله",
             {
                 "fields": ["author", "title", "category", "slug", "image", "alt"],
             },
         ),
         (
-            "Editor",
+            "ویرایشگر متن",
             {
                 "fields": ["body"],
             },
         ),
         (
-            "Seo",
+            "سئو",
             {
                 "classes": ["collapse"],
                 "fields": ["pagetitle", "description", "localeOg", "typeOg", "titleOg", "descriptionOg",

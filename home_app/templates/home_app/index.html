@@ -10,25 +10,27 @@
     <meta name="author" content="Mohammad Roudbari"/>
     <!-- description -->
     <meta name="description"
-          content="{{ tags.first.description }}"/>
+          content=""/>
     <!-- canonical -->
     <link rel="canonical" href="{{ request.build_absolute_uri }}">
 
     {#    extra tag#}
-    {{ extratags.first.field }}
+    {{ tags.first.extratag|safe }}
 
-    <meta property="og:locale" content="{{ tags.locale }}">
-    <meta property="og:type" content="{{ tags.first.type }}">
-    <meta property="og:title" content="{{ tags.first.title }}">
-    <meta property="og:description" content="{{ tags.first.descriptionOg }}">
+    <meta property="og:locale" content="">
+    <meta property="og:type" content="">
+    <meta property="og:title" content="">
+    <meta property="og:description" content="{">
 
-    <meta property="og:site_name" content="{{ tags.first.site_name }}">
-    <meta property="article:modified_time" content="{{ tags.first.modified_time }}">
+    <meta property="og:site_name" content="">
+    <meta property="article:modified_time" content="">
 
     <meta property="og:image:width" content="1280">
     <meta property="og:image:height" content="720">
     <meta property="og:image:type" content="image/jpeg">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="robots"
+          content="index,nofollow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.png"/>
     <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
     <!-- Place favicon.ico in the root directory -->
@@ -310,7 +312,12 @@
     </section>
     <!--Slider area end here-->
 </div>
-{{ schemas.first.schema1 }}
+<script type="application/ld+json">
+    {{ tags.first.schema2|safe }}
+
+
+
+</script>
 <div data-scroll="1" class="full_width">
     <!--Services area start here-->
     <section class="services-area section2">
@@ -648,7 +655,12 @@
     </section>
     <!--Gallery area end here-->
 </div>
-{{ schemas.first.schema2 }}
+<script type="application/ld+json">
+    {{ tags.first.schema1|safe }}
+
+
+
+</script>
 <div data-scroll="5" class="full_width">
     <!--Product area start here-->
     <section class="product-area section bg-img jarallax af">

@@ -31,7 +31,6 @@ class Pattern(models.Model):
     # tags
     pagetitle = models.CharField(max_length=500, blank=True, null=True, verbose_name='Title')
     description = models.CharField(max_length=500, blank=True, null=True, verbose_name='Description')
-    canonical = models.CharField(max_length=500, blank=True, null=True, verbose_name='Canonical')
     localeOg = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:locale')
     typeOg = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:type')
     titleOg = models.CharField(max_length=500, blank=True, null=True, verbose_name='Og:title')

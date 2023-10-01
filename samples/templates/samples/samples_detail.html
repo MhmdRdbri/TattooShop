@@ -11,12 +11,24 @@
 <meta name="description"
       content="{{ sample.description }}"/>
 <!-- canonical -->
-<link rel="canonical" href="{{ sample.canonical }}">
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
 
 <meta property="og:locale" content="{{ sample.localeOg }}">
 <meta property="og:type" content="{{ sample.typeOg }}">
 <meta property="og:title" content="{{ sample.titleOg }}">
 <meta property="og:description" content="{{ sample.descriptionOg }}">
+
+{{ sample.extratag|safe }}
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ sample.twitter_title }}">
+<meta name="twitter:description"
+      content="{{ sample.twitter_description }}">
+<meta property="og:image" content="{{ sample.image.url }}">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta name="robots"
+      content="{{ sample.index_noindex }}, {{ sample.follow_nofollow }}, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
 
 <meta property="og:site_name" content="{{ sample.site_name }}">
 <meta property="article:modified_time" content="{{ sample.created_at }}">
@@ -64,6 +76,10 @@
 </div>
 <!--Preloader area end-->
 <!--Header area start here-->
+<script type="application/ld+json">
+    {{ sample.schema2|safe }}
+
+</script>
 <header id="sticky" class="inner_blog_header">
     <div class="container-fluid">
         <div class="row">
@@ -185,6 +201,10 @@
         </div>
     </div>
 </section>
+<script type="application/ld+json">
+    {{ sample.schema2|safe }}
+
+</script>
 <!--Footer area start here-->
 <footer class="bg-img jarallax af">
     <div class="footer-top">

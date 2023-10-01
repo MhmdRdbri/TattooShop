@@ -8,13 +8,13 @@ from django.utils.text import slugify
 class Course(models.Model):
     name = models.CharField(max_length=100, verbose_name="نام دوره")
     href = models.CharField(max_length=100, verbose_name='کلاس', default='Type...')
-    cover = models.FileField(upload_to='images/cover/course')
-    media = models.FileField(upload_to='videos/course')
-    image = models.ImageField(upload_to='images/course', default=cover)
-    duration = models.CharField(max_length=200, default='Type...')
-    alt = models.CharField(max_length=100, verbose_name='Alt', blank=True, null=True)
-    body = CKEditor5Field('Text', config_name='extends', blank=True, null=True)
-    slug = models.SlugField(unique=True, max_length=100)
+    cover = models.FileField(upload_to='images/cover/course', verbose_name="کاور ویدئو")
+    media = models.FileField(upload_to='videos/course', verbose_name="ویدئو")
+    image = models.ImageField(upload_to='images/course', default=cover, verbose_name="نصویر")
+    duration = models.CharField(max_length=200, default='Type...', verbose_name="مدت زمان فیلم")
+    alt = models.CharField(max_length=100, verbose_name='جایگزین عکس', blank=True, null=True)
+    body = CKEditor5Field('متن', config_name='extends', blank=True, null=True)
+    slug = models.SlugField(unique=True, max_length=100, verbose_name="نامک")
     created_at = models.DateTimeField(auto_now_add=True)
 
     # tags
@@ -56,19 +56,19 @@ class Course(models.Model):
 
 
 class Comment(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='comments')
-    parent_comment = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
-    name = models.CharField(max_length=100, verbose_name='Name')
-    phone = models.CharField(max_length=15, verbose_name='Phone')
-    email = models.EmailField(max_length=255, verbose_name='Email')
-    message = models.TextField(verbose_name='Message')
-    # created = models.DateTimeField(default=timezone.now, verbose_name='Created')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='comments', verbose_name="دوره")
+    parent_comment = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies',
+                                       verbose_name="والد")
+    name = models.CharField(max_length=100, verbose_name='نام')
+    phone = models.CharField(max_length=15, verbose_name='شماره همراه')
+    email = models.EmailField(max_length=255, verbose_name='ایمیل')
+    message = models.TextField(verbose_name='پیام')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated')
 
     class Meta:
-        verbose_name = 'Comment'
-        verbose_name_plural = 'Comments'
+        verbose_name = 'کامنت'
+        verbose_name_plural = 'کامنت ها'
         ordering = ('created_at',)
 
     def __str__(self):
@@ -76,7 +76,7 @@ class Comment(models.Model):
 
 
 class CourseAttribute(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name="دوره")
     key = models.CharField(max_length=100, verbose_name="نام ویژگی")
     value = models.CharField(max_length=255, verbose_name="مقدار ویژگی")
 

@@ -15,7 +15,7 @@ class Message(models.Model):
 
 
 class ExtraTags(models.Model):
-    field = CKEditor5Field('تگ های جدید', config_name='extends', null=True, blank=True)
+    field = models.TextField(blank=True, null=True, verbose_name="تگ های جدید")
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
@@ -23,8 +23,8 @@ class ExtraTags(models.Model):
 
 
 class Schema(models.Model):
-    schema1 = CKEditor5Field('اسکیما', config_name='extends', blank=True, null=True)
-    schema2 = CKEditor5Field('اسکیما', config_name='extends', blank=True, null=True)
+    schema1 = models.TextField(blank=True, null=True, verbose_name="اسکیما")
+    schema2 = models.TextField(blank=True, null=True, verbose_name="اسکیما")
 
     def __str__(self):
         return 'Schema Code'

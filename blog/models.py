@@ -9,8 +9,8 @@ from django_ckeditor_5.fields import CKEditor5Field
 
 
 class Category(models.Model):
-    title = models.CharField(max_length=100, verbose_name='Title')
-    slug = models.CharField(max_length=120, unique=True, default='slug', verbose_name='اسلاگ')
+    title = models.CharField(max_length=100, verbose_name='نام دسته بندی')
+    slug = models.CharField(max_length=120, unique=True, default='slug', verbose_name='نامک')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Created')
 
     def __str__(self):
@@ -19,12 +19,17 @@ class Category(models.Model):
     def article_count(self):
         return self.articles.count()
 
+    class Meta:
+        verbose_name = 'دسته بندی'
+        verbose_name_plural = 'دسته بندی ها'
+        ordering = ('-created',)
+
 
 class Article(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, default='admin', verbose_name='نویسنده')
     category = models.ManyToManyField(Category, related_name="articles", verbose_name='دسته بندی')
     title = models.CharField(max_length=100, verbose_name="عنوان")
-    slug = models.SlugField(unique=True, verbose_name='اسلاگ')
+    slug = models.SlugField(unique=True, verbose_name='نامک')
     body = CKEditor5Field('متن', config_name='extends')
     image = models.ImageField(upload_to="images/articles", verbose_name='تصویر')
     alt = models.CharField(max_length=100, verbose_name='جایگزین تصویر')
@@ -75,40 +80,47 @@ class Article(models.Model):
 
 
 class BlogPostViewLog(models.Model):
-    blog_post = models.ForeignKey(Article, on_delete=models.CASCADE)
-    ip_address = models.GenericIPAddressField()
+    blog_post = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='مقاله')
+    ip_address = models.GenericIPAddressField(verbose_name='آی پی کاربر')
     updated = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.blog_post.title} - {self.ip_address}"
 
+    class Meta:
+        verbose_name = 'بازدید'
+        verbose_name_plural = 'بازدید ها'
+        ordering = ('-updated',)
+
 
 class Like(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='likes')
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='likes')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='likes', verbose_name='کاربر')
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='likes', verbose_name='مقاله')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.user.username} = {self.article.title}"
 
     class Meta:
+        verbose_name = 'لایک'
+        verbose_name_plural = 'لایک ها'
         ordering = ('-created_at',)
 
 
 class Comment(models.Model):
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
-    parent_comment = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
-    name = models.CharField(max_length=100, verbose_name='Name')
-    phone = models.CharField(max_length=15, verbose_name='Phone')
-    email = models.EmailField(max_length=255, verbose_name='Email')
-    message = models.TextField(verbose_name='Message')
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments', verbose_name='مقاله')
+    parent_comment = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies', verbose_name='کامنت والد')
+    name = models.CharField(max_length=100, verbose_name='نام')
+    phone = models.CharField(max_length=15, verbose_name='شماره همراه')
+    email = models.EmailField(max_length=255, verbose_name='ایمیل')
+    message = models.TextField(verbose_name='پیام')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated')
 
     class Meta:
-        verbose_name = 'Comment'
-        verbose_name_plural = 'Comments'
-        # ordering = ('created_at',)
+        verbose_name = 'کامنت'
+        verbose_name_plural = 'کامنت ها'
+        ordering = ('created_at',)
 
     def __str__(self):
         return f"{self.name} - {self.article.title}"
@@ -145,8 +157,8 @@ class Tags(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     class Meta:
-        verbose_name = 'Blog Page Tag'
-        verbose_name_plural = 'Blog Page Tags'
+        verbose_name = 'تگ صفحه لیست بلاگ'
+        verbose_name_plural = 'تگ های صفحه لیست بلاگ'
 
     def __str__(self):
-        return "Blog Page Tags"
+        return "تگ های صفحه لیست بلاگ"
